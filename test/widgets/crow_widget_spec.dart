@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hug_mun/generated/assets.dart';
+import 'package:hug_mun/assets/assets.dart';
 import 'package:hug_mun/widgets/CrowWidget.dart';
 
 void main() {

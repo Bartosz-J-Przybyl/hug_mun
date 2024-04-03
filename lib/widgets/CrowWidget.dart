@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../generated/assets.dart';
+import '../assets/assets.dart';
 
 class RavenWidget extends StatefulWidget {
   const RavenWidget({super.key});
