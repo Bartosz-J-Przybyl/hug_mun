@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sample/generated/assets.dart';
-import 'package:sample/widgets/CrowWidget.dart';
+import 'package:hug_mun/generated/assets.dart';
+import 'package:hug_mun/widgets/CrowWidget.dart';
 
 void main() {
   testWidgets('CrowWidget has an image', (tester) async {
