@@ -4,13 +4,17 @@ class ReusableTextFormField extends StatelessWidget {
   const ReusableTextFormField({
     super.key,
     required this.labelText,
-     this.keyboardType,
+    this.keyboardType,
     required this.obscureText,
+    this.validator,
+    required this.onSave,
   });
 
   final String labelText;
   final TextInputType? keyboardType;
   final bool obscureText;
+  final String? Function(String?)? validator;
+  final void Function(String?)? onSave;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -28,8 +32,11 @@ class ReusableTextFormField extends StatelessWidget {
       keyboardType: keyboardType,
       autocorrect: false,
       textCapitalization: TextCapitalization.none,
+      validator: validator,
       obscureText: obscureText,
+      onSaved: (value) {
+        onSave;
+      },
     );
   }
 }
-// 
