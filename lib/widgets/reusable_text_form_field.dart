@@ -19,12 +19,17 @@ class ReusableTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
+        errorStyle: TextStyle(
+          fontSize: 14,
+          color: Colors.red,
+          fontWeight: FontWeight.w500,
+        ),
         focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.white),
         ),
         labelText: labelText,
-        floatingLabelStyle: const TextStyle(color: Colors.white, fontSize: 16),
-        labelStyle: const TextStyle(color: Colors.white60, fontSize: 12),
+        floatingLabelStyle: const TextStyle(color: Colors.white, fontSize: 18),
+        labelStyle: const TextStyle(color: Colors.white70, fontSize: 16),
       ),
       style: TextStyle(
         color: Theme.of(context).colorScheme.onPrimary,
