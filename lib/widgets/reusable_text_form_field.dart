@@ -39,9 +39,7 @@ class ReusableTextFormField extends StatelessWidget {
       textCapitalization: TextCapitalization.none,
       validator: validator,
       obscureText: obscureText,
-      onSaved: (value) {
-        onSave;
-      },
+      onSaved: onSave,
     );
   }
 }
