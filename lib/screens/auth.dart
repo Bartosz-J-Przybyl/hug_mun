@@ -58,7 +58,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 Positioned(
                   top: 145,
                   width: 400,
-                  height: 240,
+                  height: 250,
                   child: Card(
                     color: Theme.of(context)
                         .colorScheme
@@ -67,7 +67,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     margin: const EdgeInsets.all(20),
                     child: SingleChildScrollView(
                       child: Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             left: 16, right: 16, top: 20, bottom: 25),
                         child: Form(
                           key: _formKey,
