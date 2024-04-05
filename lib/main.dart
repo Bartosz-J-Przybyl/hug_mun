@@ -4,6 +4,7 @@ import 'package:hug_mun/firebase_options.dart';
 import 'package:hug_mun/screens/auth.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
