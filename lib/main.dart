@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hug_mun/firebase_options.dart';
 import 'package:hug_mun/screens/auth.dart';
+import 'package:hug_mun/screens/home_screen.dart';
+import 'package:hug_mun/screens/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +25,17 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
-      home: const AuthScreen(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting)
+            return SplashScreen();
+          if (snapshot.hasData) {
+            return HomeScreen();
+          }
+          return AuthScreen();
+        },
+      ),
     );
   }
 }
