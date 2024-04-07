@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class ReusableTextFormField extends StatelessWidget {
   const ReusableTextFormField({
     super.key,
-    required this.labelText,
     this.keyboardType,
-    required this.obscureText,
     this.validator,
+    required this.labelText,
+    required this.obscureText,
     required this.onSave,
   });
 

@@ -1,6 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hug_mun/main.dart';
+import 'package:hug_mun/assets/assets.dart';
 import 'package:hug_mun/widgets/light_cont.dart';
 import 'package:hug_mun/widgets/shadow_cont.dart';
 
@@ -9,6 +8,11 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const _craTitle = 'Cra!!!';
+    const _colorPaletTitle = "Color Palet";
+    const _settingsTitle = "Settings";
+    const _logOutTitle = "Log out";
+
     return Drawer(
       backgroundColor: Theme.of(context).colorScheme.background,
       child: Column(
@@ -24,13 +28,13 @@ class MainDrawer extends StatelessWidget {
                   children: [
                     ClipPath(
                       clipper: ShadowClipper(),
-                      child: ShadowContainer(
+                      child: const ShadowContainer(
                         masure: 100,
                       ),
                     ),
                     ClipPath(
                       clipper: HighlightClipper(),
-                      child: LightContainer(
+                      child: const LightContainer(
                         masure: 100,
                       ),
                     ),
@@ -40,7 +44,7 @@ class MainDrawer extends StatelessWidget {
                         backgroundColor: Colors.transparent,
                         radius: 40,
                         child: Image.asset(
-                          "lib/assets/images/kruk.png",
+                          Assets.imagesCrow,
                           height: 100,
                           color: Theme.of(context).colorScheme.background,
                           fit: BoxFit.contain,
@@ -53,7 +57,7 @@ class MainDrawer extends StatelessWidget {
                   width: 18,
                 ),
                 Text(
-                  "Kra!",
+                  _craTitle,
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: Theme.of(context).colorScheme.background,
                       ),
@@ -70,7 +74,7 @@ class MainDrawer extends StatelessWidget {
                     size: 23,
                     color: Theme.of(context).iconTheme.color,
                   ),
-                  title: Text("Color Palet",
+                  title: Text(_colorPaletTitle,
                       style: Theme.of(context).textTheme.titleSmall!),
                 ),
                 ListTile(
@@ -79,7 +83,7 @@ class MainDrawer extends StatelessWidget {
                     size: 23,
                     color: Theme.of(context).iconTheme.color,
                   ),
-                  title: Text("Setings",
+                  title: Text(_settingsTitle,
                       style: Theme.of(context).textTheme.titleSmall!),
                   onTap: () {},
                 ),
@@ -89,16 +93,21 @@ class MainDrawer extends StatelessWidget {
                     size: 23,
                     color: Theme.of(context).iconTheme.color,
                   ),
-                  title: Text("Log out",
+                  title: Text(_logOutTitle,
                       style: Theme.of(context).textTheme.titleSmall!),
                   onTap: () {
                     {
-                      FirebaseAuth.instance.signOut().then((value) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MyApp()));
-                      });
+                      //  TODO https://huginn-muninn.atlassian.net/browse/HM-6
+                      // FirebaseAuth.instance.signOut().then(
+                      //   (value) {
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) => const MyApp(),
+                      //       ),
+                      //     );
+                      //   },
+                      // );
                     }
                   },
                 ),

@@ -1,6 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:hug_mun/assets/assets.dart';
 import 'package:hug_mun/widgets/main_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,17 +7,21 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const _appBarTitle = "Welcome";
+    const _craTitle = 'Cra!!!';
+    const _logedInInTitle = "Logged in!";
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       drawer: MainDrawer(),
       appBar: AppBar(
         iconTheme:
             IconThemeData(color: Theme.of(context).colorScheme.background),
-        title: (const Text("Welcome")),
+        title: Text(_appBarTitle),
         actions: <Widget>[
           IconButton(
             icon: Image.asset(
-              "lib/assets/images/kruk.png",
+              Assets.imagesCrow,
               width: 60,
               color: Colors.white,
               fit: BoxFit.cover,
@@ -30,7 +33,7 @@ class HomeScreen extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: 100.0),
                 duration: Duration(seconds: 1),
                 content: Text(
-                  'Cra!!!',
+                  _craTitle,
                   textAlign: TextAlign.center,
                   selectionColor: Colors.amber,
                 ),
@@ -42,7 +45,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.onBackground,
       ),
       body: Center(
-        child: Text("Logged in!"),
+        child: Text(_logedInInTitle),
       ),
     );
   }
