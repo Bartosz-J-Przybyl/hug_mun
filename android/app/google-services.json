@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "340233529876",
+    "project_id": "hugmun-f14e3",
+    "storage_bucket": "hugmun-f14e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340233529876:android:5a79bd44d01fea4c3d5501",
+        "android_client_info": {
+          "package_name": "com.example.hug_mun"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9miP2HsqsuzRw3-nYPLeptm4LO2o5Kuk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
