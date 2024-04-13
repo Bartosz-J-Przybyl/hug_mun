@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
+  static Route route() {
+    return MaterialPageRoute<void>(builder: (_) => const SplashScreen());
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Welcome"),
+        title: const Text("Welcome"),
       ),
-      body: Center(
+      body: const Center(
         child: Text("Loading"),
       ),
     );

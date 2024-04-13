@@ -4,6 +4,7 @@ import 'package:hug_mun/widgets/main_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+  static Route route() => MaterialPageRoute<void>(builder: (ctx) => HomeScreen());
 
   @override
   Widget build(BuildContext context) {
