@@ -11,15 +11,14 @@ class LoginState extends Equatable {
         this.password = const Password.pure()});
 
   @override
-  List<Object> get props => [this.status, this.username, this.password];
+  List<Object> get props => [status, username, password];
 
   LoginState copyWith(
-      {FormzStatus? status, Username? username, Password? password}) {
-    return LoginState(
-        status: status ?? this.status,
+          {FormzStatus? status, Username? username, Password? password}) =>
+      LoginState(
+          status: status ?? this.status,
         username: username ?? this.username,
         password: password ?? this.password);
-  }
 }
 
 class LoginInitial extends LoginState {}

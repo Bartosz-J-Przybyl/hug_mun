@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:hug_mun/api/model/response/MattermostErrorResponse.dart';
 
-import 'exceptions/ClientException.dart';
+import 'exceptions/ClientException.dart' as ce;
 import 'exceptions/ServerException.dart';
 
 class HugMunHttpClient {
@@ -20,9 +20,16 @@ class HugMunHttpClient {
   String? _token;
   bool authenticated = false;
 
+  final Client client;
+
+  HugMunHttpClient(this.client);
+
+  final int port = dotenv.env['HTTP_CLIENT_PORT'] != null
+      ? int.parse(dotenv.env['HTTP_CLIENT_PORT']!)
+      : _port;
+  final String host = dotenv.env['HTTP_CLIENT_HOST'] ?? _host;
+
   Uri parse(String endpoint) {
-    final port = dotenv.env['HTTP_CLIENT_PORT'] ?? _port;
-    final host = dotenv.env['HTTP_CLIENT_HOST'] ?? _host;
     // TODO HM-5
     return Uri.parse("http://$host:$port$_baseUri$_apiVersion$endpoint");
   }
@@ -39,15 +46,15 @@ class HugMunHttpClient {
       headers ??= APPLICATION_JSON;
       encoding ??= UTF_8;
       _bearerToken(headers);
-      final response = await http.post(
+
+      final response = await client.post(
         url,
         body: body,
         headers: headers,
         encoding: encoding,
       );
-      debugPrint("response: $response");
       return _handleResponse(response, mapper)
-          .fold((l) => throw ClientException.from(l), (r) => r);
+          .fold((l) => throw ce.ClientException.from(l), (r) => r);
     } catch (exception, stackTrace) {
       _handleException(exception);
       debugPrintStack(stackTrace: stackTrace);
@@ -67,12 +74,12 @@ class HugMunHttpClient {
       headers ??= APPLICATION_JSON;
       encoding ??= UTF_8;
       _bearerToken(headers);
-      final response = await http.get(
+      final response = await client.get(
         url,
         headers: headers,
       );
       return _handleResponse(response, mapper)
-          .fold((l) => throw ClientException.from(l), (r) => r);
+          .fold((l) => throw ce.ClientException.from(l), (r) => r);
     } catch (exception, stackTrace) {
       _handleException(exception);
       debugPrintStack(stackTrace: stackTrace);
@@ -80,8 +87,8 @@ class HugMunHttpClient {
     }
   }
 
-  Either<MattermostErrorResponse, T> _handleResponse<T>(
-      http.Response response, T Function(Map<String, dynamic> object) mapper) {
+  Either<MattermostErrorResponse, T> _handleResponse<T>(Response response,
+      T Function(Map<String, dynamic> object) mapper) {
     Either<MattermostErrorResponse, T> mapJsonToModel(String body) {
       final json = jsonDecode(body) as Map<String, dynamic>;
       final model = mapper(json);
@@ -90,8 +97,6 @@ class HugMunHttpClient {
         _token = token!;
         authenticated = true;
       }
-      debugPrint("Successfully received: $model");
-
       return Either.of(model);
     }
 
@@ -121,8 +126,6 @@ class HugMunHttpClient {
     switch (exception) {
       case ServerException se:
         debugPrint('Request finished with error ${se.message}');
-      case ClientException ce:
-        debugPrint('Request finished with error ${ce.message}');
       default:
         debugPrint('Request finished with error $exception');
     }

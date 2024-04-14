@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hug_mun/models/user.dart';
-
 import 'package:hug_mun/repositories/authentication_repository.dart';
 import 'package:hug_mun/repositories/user_repository.dart';
 
@@ -28,6 +27,7 @@ class AuthenticationBloc
     );
   }
 
+  @override
   Stream<AuthenticationState> mapEventToState(
     AuthenticationEvent event,
   ) async* {

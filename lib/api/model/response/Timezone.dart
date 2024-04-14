@@ -5,9 +5,9 @@ class Timezone {
   String? useAutomaticTimezone;
 
   Timezone.fromJson(Map<String, dynamic> json) {
-    automaticTimezone = json['automaticTimezone'] as String;
-    manualTimezone = json['manualTimezone'] as String;
-    useAutomaticTimezone = json['useAutomaticTimezone'] as String;
+    automaticTimezone = json['automaticTimezone'] as String?;
+    manualTimezone = json['manualTimezone'] as String?;
+    useAutomaticTimezone = json['useAutomaticTimezone'] as String?;
   }
 
   Map<String, dynamic> toJson() {

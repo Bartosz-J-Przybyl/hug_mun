@@ -21,49 +21,51 @@ class LoginModelResponse {
   Timezone? timezone;
   bool? disable_welcome_email;
 
+  LoginModelResponse();
+
   LoginModelResponse.fromJson(Map<String, dynamic> json) {
-    id = json['id'] as String;
-    create_at = json['create_at'] as int;
-    update_at = json['update_at'] as int;
-    delete_at = json['delete_at'] as int;
+    final notifyPropsResponse =
+        (json['notify_props']) as Map<String, dynamic>? ?? Map.identity();
+    final timezoneResponse =
+        (json['timezone']) as Map<String, dynamic>? ?? Map.identity();
+    id = json['id'] as String?;
+    create_at = json['create_at'] as int?;
+    update_at = json['update_at'] as int?;
+    delete_at = json['delete_at'] as int?;
     username = json['username'] as String;
-    auth_data = json['auth_data'] as String;
-    auth_service = json['auth_service'] as String;
-    email = json['email'] as String;
+    auth_data = json['auth_data'] as String?;
+    auth_service = json['auth_service'] as String?;
+    email = json['email'] as String?;
     nickname = json['nickname'] as String;
-    first_name = json['first_name'] as String;
-    last_name = json['last_name'] as String;
-    position = json['position'] as String;
-    roles = json['roles'] as String;
-    notify_props = NotifyProps.fromJson(
-        (json['notify_props']) as Map<String, dynamic>);
-    last_password_update = json['last_password_update'] as int;
-    locale = json['locale'] as String;
-    timezone = Timezone.fromJson(
-        (json['timezone']) as Map<String, dynamic>);
-    disable_welcome_email = json['disable_welcome_email'] as bool;
+    first_name = json['first_name'] as String?;
+    last_name = json['last_name'] as String?;
+    position = json['position'] as String?;
+    roles = json['roles'] as String?;
+    notify_props = NotifyProps.fromJson(notifyPropsResponse);
+    last_password_update = json['last_password_update'] as int?;
+    locale = json['locale'] as String?;
+    timezone = Timezone.fromJson(timezoneResponse);
+    disable_welcome_email = json['disable_welcome_email'] as bool?;
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'create_at': create_at,
-      'update_at': update_at,
-      'delete_at': delete_at,
-      'username': username,
-      'auth_data': auth_data,
-      'auth_service': auth_service,
-      'email': email,
-      'nickname': nickname,
-      'first_name': first_name,
-      'last_name': last_name,
-      'position': position,
-      'roles': roles,
-      'notify_props': notify_props?.toJson(),
-      'last_password_update': last_password_update,
-      'locale': locale,
-      'timezone': timezone?.toJson(),
-      'disable_welcome_email': disable_welcome_email,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'create_at': create_at,
+        'update_at': update_at,
+        'delete_at': delete_at,
+        'username': username,
+        'auth_data': auth_data,
+        'auth_service': auth_service,
+        'email': email,
+        'nickname': nickname,
+        'first_name': first_name,
+        'last_name': last_name,
+        'position': position,
+        'roles': roles,
+        'notify_props': notify_props?.toJson(),
+        'last_password_update': last_password_update,
+        'locale': locale,
+        'timezone': timezone?.toJson(),
+        'disable_welcome_email': disable_welcome_email,
+      };
 }

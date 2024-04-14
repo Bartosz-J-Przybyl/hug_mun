@@ -14,18 +14,18 @@ class NotifyProps {
   String? push_threads;
 
   NotifyProps.fromJson(Map<String, dynamic> json) {
-    channel = json['channel'] as String;
-    comments = json['comments'] as String;
-    desktop = json['desktop'] as String;
-    desktop_sound = json['desktop_sound'] as String;
-    desktop_threads = json['desktop_threads'] as String;
-    email = json['email'] as String;
-    email_threads = json['email_threads'] as String;
-    first_name = json['first_name'] as String;
-    mention_keys = json['mention_keys'] as String;
-    push = json['push'] as String;
-    push_status = json['push_status'] as String;
-    push_threads = json['push_threads'] as String;
+    channel = json['channel'] as String?;
+    comments = json['comments'] as String?;
+    desktop = json['desktop'] as String?;
+    desktop_sound = json['desktop_sound'] as String?;
+    desktop_threads = json['desktop_threads'] as String?;
+    email = json['email'] as String?;
+    email_threads = json['email_threads'] as String?;
+    first_name = json['first_name'] as String?;
+    mention_keys = json['mention_keys'] as String?;
+    push = json['push'] as String?;
+    push_status = json['push_status'] as String?;
+    push_threads = json['push_threads'] as String?;
   }
 
   Map<String, dynamic> toJson() {
