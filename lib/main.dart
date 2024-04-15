@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hug_mun/screens/auth.dart';
+import 'package:hug_mun/screens/home_screen.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
-      home: const AuthScreen(),
+      home: HomeScreen(),
       //  TODO
       // home: StreamBuilder(
       //   stream: ...,
