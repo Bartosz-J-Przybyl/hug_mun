@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hug_mun/assets/assets.dart';
+import 'package:hug_mun/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:hug_mun/widgets/main_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  static Route route() =>
+      MaterialPageRoute<void>(builder: (ctx) => const HomeScreen());
+
   @override
   Widget build(BuildContext context) {
     const _appBarTitle = "Welcome";
     const _craTitle = 'Cra!!!';
-    const _logedInInTitle = "Logged in!";
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      drawer: MainDrawer(),
+      drawer: const MainDrawer(),
       appBar: AppBar(
         iconTheme:
             IconThemeData(color: Theme.of(context).colorScheme.background),
-        title: Text(_appBarTitle),
+        title: const Text(_appBarTitle),
         actions: <Widget>[
           IconButton(
             icon: Image.asset(
@@ -44,9 +48,25 @@ class HomeScreen extends StatelessWidget {
         ],
         backgroundColor: Theme.of(context).colorScheme.onBackground,
       ),
-      body: Center(
-        child: Text(_logedInInTitle),
-      ),
+      body: _UserData(),
     );
+  }
+}
+
+class _UserData extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        buildWhen: (previous, current) => previous.user != current.user,
+        builder: (context, state) {
+          final username = "${state.user.username}";
+          return Center(
+              child: Column(
+            children: [
+              const Text("You are login as:"),
+              Text(username),
+            ],
+          ));
+        });
   }
 }
