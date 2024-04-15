@@ -5,7 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:hug_mun/api/client.dart';
-import 'package:hug_mun/api/model/response/LoginResponseModel.dart';
+import 'package:hug_mun/api/model/response/login_response_model.dart';
 import 'package:hug_mun/api/services/user_service.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -13,10 +13,10 @@ class MockHttpClient extends Mock implements Client {}
 
 class FakeUri extends Fake implements Uri {}
 
-const _NICKNAME = "test";
-const _USERNAME = "user_test";
-const _PASSWORD = "test123!";
-const _EMAIL = "test@test.pl";
+const _nickName = "test";
+const _userName = "user_test";
+const _password = "test123!";
+const _email = "test@test.pl";
 
 void main() async {
   setUpAll(() => registerFallbackValue(FakeUri()));
@@ -30,8 +30,8 @@ void main() async {
       // given
       final model = _modelResponse();
       final body = jsonEncode({
-        'login_id': _USERNAME,
-        'password': _PASSWORD,
+        'login_id': _userName,
+        'password': _password,
       });
       when(() => client.post(any(),
               body: body,
@@ -40,12 +40,12 @@ void main() async {
           .thenAnswer(((_) async => Response(jsonEncode(model), 200)));
 
       // when
-      final login = await userService.login(_USERNAME, _PASSWORD);
+      final login = await userService.login(_userName, _password,);
 
       // then
-      login.username.shouldBeEqualTo(_USERNAME);
-      login.email.shouldBeEqualTo(_EMAIL);
-      login.nickname.shouldBeEqualTo(_NICKNAME);
+      login.username.shouldBeEqualTo(_userName);
+      login.email.shouldBeEqualTo(_email);
+      login.nickname.shouldBeEqualTo(_nickName);
 
       verify(() => client.post(any(),
           body: body,
@@ -57,8 +57,8 @@ void main() async {
 
 LoginModelResponse _modelResponse() {
   final model = LoginModelResponse();
-  model.username = _USERNAME;
-  model.email = _EMAIL;
-  model.nickname = _NICKNAME;
+  model.username = _userName;
+  model.email = _email;
+  model.nickname = _nickName;
   return model;
 }

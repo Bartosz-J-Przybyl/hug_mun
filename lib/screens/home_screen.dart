@@ -4,6 +4,9 @@ import 'package:hug_mun/assets/assets.dart';
 import 'package:hug_mun/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:hug_mun/widgets/main_drawer.dart';
 
+const _appBarTitle = "Welcome";
+const _craTitle = 'Cra!!!';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -12,9 +15,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const _appBarTitle = "Welcome";
-    const _craTitle = 'Cra!!!';
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       drawer: const MainDrawer(),

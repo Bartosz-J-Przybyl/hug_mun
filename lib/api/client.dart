@@ -4,18 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart';
-import 'package:hug_mun/api/model/response/MattermostErrorResponse.dart';
+import 'package:hug_mun/api/model/response/mattermost_error_response.dart';
 
-import 'exceptions/ClientException.dart' as ce;
-import 'exceptions/ServerException.dart';
+import 'exceptions/client_exception.dart' as ce;
+import 'exceptions/server_exception.dart';
 
 class HugMunHttpClient {
   static const _baseUri = '/api/';
   static const _host = '10.0.2.2';
   static const _port = 8065;
   static const _apiVersion = "v4";
-  static final UTF_8 = Encoding.getByName('utf-8');
-  static final APPLICATION_JSON = {"content-type": "application/json"};
+  static final utf_8 = Encoding.getByName('utf-8');
+  static final appJson = {"content-type": "application/json"};
 
   String? _token;
   bool authenticated = false;
@@ -43,8 +43,8 @@ class HugMunHttpClient {
   }) async {
     try {
       final url = parse(endpoint);
-      headers ??= APPLICATION_JSON;
-      encoding ??= UTF_8;
+      headers ??= appJson;
+      encoding ??= utf_8;
       _bearerToken(headers);
 
       final response = await client.post(
@@ -71,8 +71,8 @@ class HugMunHttpClient {
   }) async {
     try {
       final url = parse(endpoint);
-      headers ??= APPLICATION_JSON;
-      encoding ??= UTF_8;
+      headers ??= appJson;
+      encoding ??= utf_8;
       _bearerToken(headers);
       final response = await client.get(
         url,

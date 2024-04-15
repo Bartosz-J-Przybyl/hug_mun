@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:hug_mun/assets/assets.dart';
 import 'package:hug_mun/widgets/drawer_list_tile.dart';
 import 'package:hug_mun/widgets/neumofism.dart';
-
 import 'package:hug_mun/widgets/stack_neumorphism.dart';
+
+const _nickTitle = 'CrowRaven';
+const _logTitle = 'CrowRaven@app.en';
+const _colorPaletTitle = "Color Palet";
+const _settingsTitle = "Settings";
+const _logOutTitle = "Log out";
+const _accountsTitle = "Account Details";
+const _notificationTitle = "Notification";
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const _nickTitle = 'CrowRaven';
-    const _logTitle = 'CrowRaven@app.en';
-    const _colorPaletTitle = "Color Palet";
-    const _settingsTitle = "Settings";
-    const _logOutTitle = "Log out";
-    const _accountsTitle = "Account Details";
-    const _notificationTitle = "Notification";
     return Drawer(
       backgroundColor: Theme.of(context).colorScheme.background,
       child: Column(
@@ -95,17 +95,17 @@ class MainDrawer extends StatelessWidget {
                         children: [
                           Neumorphism(
                             masure: 40,
+                            radius: 20,
                             child: IconButton(
                               onPressed: () {},
                               icon: const Icon(Icons.mode_night_sharp),
                               color: Theme.of(context).colorScheme.background,
                               iconSize: 29,
                             ),
-                            radius: 20,
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
                       IconButton(

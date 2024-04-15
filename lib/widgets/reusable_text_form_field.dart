@@ -7,7 +7,7 @@ class ReusableTextFormField extends StatelessWidget {
     this.validator,
     required this.labelText,
     required this.obscureText,
-    required this.onSave,
+     this.onSave, this.onChange,
   });
 
   final String labelText;
@@ -15,11 +15,12 @@ class ReusableTextFormField extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?)? validator;
   final void Function(String?)? onSave;
+  final  void Function(String?)? onChange;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
-        errorStyle: TextStyle(
+        errorStyle: const TextStyle(
           fontSize: 14,
           color: Colors.red,
           fontWeight: FontWeight.w500,
@@ -40,6 +41,7 @@ class ReusableTextFormField extends StatelessWidget {
       validator: validator,
       obscureText: obscureText,
       onSaved: onSave,
+      onChanged: onChange,
     );
   }
 }
