@@ -44,3 +44,4 @@ flutter:
     - .env
     - images/crow.png
     - images/fog.jpg
+    - images/background.png

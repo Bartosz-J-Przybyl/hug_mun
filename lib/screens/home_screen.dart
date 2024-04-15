@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hug_mun/assets/assets.dart';
@@ -60,13 +62,33 @@ class _UserData extends StatelessWidget {
         buildWhen: (previous, current) => previous.user != current.user,
         builder: (context, state) {
           final username = "${state.user.username}";
-          return Center(
-              child: Column(
-            children: [
-              const Text("You are login as:"),
-              Text(username),
-            ],
-          ));
+          return Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(Assets.background),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "You are login as:",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+                Text(
+                  username,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+              ],
+            )),
+          );
         });
   }
 }
+//
