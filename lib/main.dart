@@ -54,6 +54,7 @@ class MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
+        theme: ThemeData(useMaterial3: true),
         navigatorKey: _navigatorKey,
         builder: (context, child) =>
             BlocListener<AuthenticationBloc, AuthenticationState>(
