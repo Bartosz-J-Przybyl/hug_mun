@@ -12,14 +12,13 @@ class DrawerListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return ExpansionTile(
       leading: Icon(
         icon,
         size: 23,
         color: Theme.of(context).iconTheme.color,
       ),
       title: Text(tileText, style: Theme.of(context).textTheme.titleSmall!),
-      onTap: () {},
     );
   }
 }
