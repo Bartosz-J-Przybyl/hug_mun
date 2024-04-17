@@ -149,9 +149,16 @@ class _LoginButton extends StatelessWidget {
                 : ElevatedButton(
                     key: const Key('loginForm_continue_raisedButton'),
                     onPressed: () async {
-                      context.read<LoginBloc>().add(const LoginSubmitted(),);
+                      context.read<LoginBloc>().add(
+                            const LoginSubmitted(),
+                          );
                     },
-                    child: const Text('Login'),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
+                    ),
                   ),
       );
 }
