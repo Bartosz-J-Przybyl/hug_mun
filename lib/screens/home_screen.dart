@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hug_mun/assets/assets.dart';
@@ -65,7 +63,7 @@ class _UserData extends StatelessWidget {
           return Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(Assets.background),
+                image: AssetImage(Assets.imagesFog),
                 fit: BoxFit.cover,
               ),
             ),
