@@ -9,9 +9,7 @@ import 'package:hug_mun/api/model/response/login_response_model.dart';
 import 'package:hug_mun/api/services/user_service.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockHttpClient extends Mock implements Client {}
-
-class FakeUri extends Fake implements Uri {}
+import '../web_test_utils.dart';
 
 const _nickName = "test";
 const _userName = "user_test";
