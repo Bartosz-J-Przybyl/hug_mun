@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ReusableTextFormField extends StatelessWidget {
   const ReusableTextFormField({
@@ -7,7 +8,8 @@ class ReusableTextFormField extends StatelessWidget {
     this.validator,
     required this.labelText,
     required this.obscureText,
-    required this.onSave,
+    this.onSave,
+    this.onChange,
   });
 
   final String labelText;
@@ -15,11 +17,13 @@ class ReusableTextFormField extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?)? validator;
   final void Function(String?)? onSave;
+  final void Function(String?)? onChange;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      cursorColor: Colors.amber,
       decoration: InputDecoration(
-        errorStyle: TextStyle(
+        errorStyle: const TextStyle(
           fontSize: 14,
           color: Colors.red,
           fontWeight: FontWeight.w500,
@@ -28,10 +32,13 @@ class ReusableTextFormField extends StatelessWidget {
           borderSide: BorderSide(color: Colors.white),
         ),
         labelText: labelText,
-        floatingLabelStyle: const TextStyle(color: Colors.white, fontSize: 18),
-        labelStyle: const TextStyle(color: Colors.white70, fontSize: 16),
+        floatingLabelStyle: GoogleFonts.firaCode().copyWith(
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+        labelStyle: GoogleFonts.firaCode().copyWith(
+            color: Theme.of(context).colorScheme.onPrimary, fontSize: 14),
       ),
-      style: TextStyle(
+      style: GoogleFonts.firaCode().copyWith(
         color: Theme.of(context).colorScheme.onPrimary,
       ),
       keyboardType: keyboardType,
@@ -40,6 +47,7 @@ class ReusableTextFormField extends StatelessWidget {
       validator: validator,
       obscureText: obscureText,
       onSaved: onSave,
+      onChanged: onChange,
     );
   }
 }

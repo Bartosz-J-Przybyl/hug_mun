@@ -7,6 +7,7 @@ import 'package:hug_mun/assets/assets.dart';
 import 'package:hug_mun/blocs/login/bloc/login_bloc.dart';
 import 'package:hug_mun/repositories/authentication_repository.dart';
 import 'package:hug_mun/repositories/user_repository.dart';
+import 'package:hug_mun/widgets/reusable_text_form_field.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -116,26 +117,21 @@ class _UserCredentialsForm extends StatelessWidget {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(
+              ReusableTextFormField(
                 key: const Key('loginForm_usernameInput_textField'),
-                onChanged: (value) {
-                  context.read<LoginBloc>().add(LoginUsernameChanged(value));
+                onChange: (value) {
+                  context.read<LoginBloc>().add(LoginUsernameChanged(value!));
                 },
-                decoration: InputDecoration(
-                    labelText: 'username',
-                    errorText:
-                        state.username.invalid ? 'invalid username' : null),
+                labelText: 'username',
+                obscureText: false,
               ),
-              TextField(
+              ReusableTextFormField(
                 key: const Key('loginForm_passwordInput_textField'),
-                onChanged: (value) {
-                  context.read<LoginBloc>().add(LoginPasswordChanged(value));
+                onChange: (value) {
+                  context.read<LoginBloc>().add(LoginPasswordChanged(value!));
                 },
                 obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'password',
-                  errorText: state.password.invalid ? 'invalid password' : null,
-                ),
+                labelText: 'password',
               ),
             ],
           );
@@ -153,9 +149,16 @@ class _LoginButton extends StatelessWidget {
                 : ElevatedButton(
                     key: const Key('loginForm_continue_raisedButton'),
                     onPressed: () async {
-                      context.read<LoginBloc>().add(const LoginSubmitted());
+                      context.read<LoginBloc>().add(
+                            const LoginSubmitted(),
+                          );
                     },
-                    child: const Text('Login'),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
+                    ),
                   ),
       );
 }

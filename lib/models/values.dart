@@ -5,7 +5,7 @@ enum PasswordValidationError { empty }
 
 class Username extends FormzInput<String, UsernameValidationError> {
   const Username.pure() : super.pure('');
-  const Username.dirty([String value = '']) : super.dirty(value);
+  const Username.dirty([super.value = '']) : super.dirty();
 
   @override
   UsernameValidationError? validator(String? value) {
@@ -15,7 +15,7 @@ class Username extends FormzInput<String, UsernameValidationError> {
 
 class Password extends FormzInput<String, PasswordValidationError> {
   const Password.pure() : super.pure('');
-  const Password.dirty([String value = '']) : super.dirty(value);
+  const Password.dirty([super.value = '']) : super.dirty();
 
   @override
   PasswordValidationError? validator(String? value) {

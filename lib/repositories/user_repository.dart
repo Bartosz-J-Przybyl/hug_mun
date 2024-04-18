@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:hug_mun/api/model/response/LoginResponseModel.dart';
+import 'package:hug_mun/api/model/response/login_response_model.dart';
 import 'package:hug_mun/blocs/login/bloc/login_bloc.dart';
 import 'package:hug_mun/models/user.dart';
 
@@ -21,12 +21,12 @@ class UserRepository {
     _user = User(
         response.id!,
         response.username,
-        response.auth_data,
-        response.auth_service,
+        response.authData,
+        response.authService,
         response.email,
         response.nickname,
-        response.first_name,
-        response.last_name);
+        response.firstName,
+        response.lastName);
   }
 
   Future<void> remove() async {

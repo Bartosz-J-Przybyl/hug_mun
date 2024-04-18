@@ -4,6 +4,9 @@ import 'package:hug_mun/assets/assets.dart';
 import 'package:hug_mun/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:hug_mun/widgets/main_drawer.dart';
 
+const _appBarTitle = "Welcome";
+const _craTitle = 'Cra!!!';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -12,9 +15,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const _appBarTitle = "Welcome";
-    const _craTitle = 'Cra!!!';
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       drawer: const MainDrawer(),
@@ -60,13 +60,33 @@ class _UserData extends StatelessWidget {
         buildWhen: (previous, current) => previous.user != current.user,
         builder: (context, state) {
           final username = "${state.user.username}";
-          return Center(
-              child: Column(
-            children: [
-              const Text("You are login as:"),
-              Text(username),
-            ],
-          ));
+          return Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(Assets.imagesFog),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "You are login as:",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+                Text(
+                  username,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+              ],
+            )),
+          );
         });
   }
 }
+//

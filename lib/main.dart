@@ -44,16 +44,17 @@ class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
   @override
-  _MainAppState createState() => _MainAppState();
+  MainAppState createState() => MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class MainAppState extends State<MainApp> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
+        theme: ThemeData(useMaterial3: true),
         navigatorKey: _navigatorKey,
         builder: (context, child) =>
             BlocListener<AuthenticationBloc, AuthenticationState>(
