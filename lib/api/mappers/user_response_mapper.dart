@@ -5,6 +5,9 @@ class UserResponseMapper {
   static LoginModelResponse login(Map<String, dynamic> json) =>
       LoginModelResponse.fromJson(json);
 
-  static UserMeResponse userMe(Map<String, dynamic> json) =>
+  static UserMeResponse me(Map<String, dynamic> json) =>
       UserMeResponse.fromJson(json);
+
+  static List<String> known(List<dynamic> json) =>
+      json.map((it) => it as String).toList();
 }

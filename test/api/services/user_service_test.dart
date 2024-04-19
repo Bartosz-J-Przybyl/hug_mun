@@ -32,13 +32,14 @@ void main() async {
         'password': _password,
       });
       when(() => client.post(any(),
-              body: body,
-              headers: any(named: 'headers'),
-              encoding: any(named: 'encoding')))
+              body: body, headers: anyHeader(), encoding: anyEncoding()))
           .thenAnswer(((_) async => Response(jsonEncode(model), 200)));
 
       // when
-      final login = await userService.login(_userName, _password,);
+      final login = await userService.login(
+        _userName,
+        _password,
+      );
 
       // then
       login.username.shouldBeEqualTo(_userName);
@@ -46,9 +47,38 @@ void main() async {
       login.nickname.shouldBeEqualTo(_nickName);
 
       verify(() => client.post(any(),
-          body: body,
-          headers: any(named: 'headers'),
-          encoding: any(named: 'encoding'))).called(1);
+          body: body, headers: anyHeader(), encoding: anyEncoding())).called(1);
+    });
+
+    test("should get known users", () async {
+      // given
+      final response = [
+        "6bqk6qowc7ycurpmoed5rnmhqh",
+        "8q1pizjr5jrfdmdueeqxizraeo",
+        "kg5oe9czstrm9r88p5fdjjjt9o",
+        "43bjnuqp7bg9uqjbg7b73wh7ma",
+        "dym5ic4mrbnf8php989w3866he"
+      ];
+
+      when(() => client.get(
+            any(),
+            headers: anyHeader(),
+          )).thenAnswer(((_) async => Response(jsonEncode(response), 200)));
+
+      // when
+      final knownUsers = await userService.known();
+
+      // then
+      knownUsers.length.shouldBeEqualTo(response.length);
+      knownUsers[0].shouldBeEqualTo(response[0]);
+      knownUsers[1].shouldBeEqualTo(response[1]);
+      knownUsers[2].shouldBeEqualTo(response[2]);
+      knownUsers[3].shouldBeEqualTo(response[3]);
+
+      verify(() => client.get(
+            any(),
+            headers: anyHeader(),
+          )).called(1);
     });
   });
 }

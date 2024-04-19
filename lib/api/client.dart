@@ -14,7 +14,6 @@ class HugMunHttpClient {
   static const _host = '10.0.2.2';
   static const _port = 8065;
   static const _apiVersion = "v4";
-  static const _tokenKey = 'token';
   static final utf_8 = Encoding.getByName('utf-8');
   static final appJson = {"content-type": "application/json"};
 
@@ -41,7 +40,7 @@ class HugMunHttpClient {
       {Map<String, String>? headers,
         String? body,
         Encoding? encoding,
-        Map<String, dynamic>? parameters}) async {
+      Map<String, String>? parameters}) async {
     try {
       final url = parse(endpoint, parameters);
       headers ??= appJson;
@@ -67,7 +66,7 @@ class HugMunHttpClient {
       {Map<String, String>? headers,
       String? body,
       Encoding? encoding,
-      Map<String, dynamic>? parameters}) async {
+      Map<String, String>? parameters}) async {
     try {
       final url = parse(endpoint, parameters);
       headers ??= appJson;
