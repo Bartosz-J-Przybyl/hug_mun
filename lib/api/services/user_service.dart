@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:hug_mun/api/client.dart';
+import 'package:hug_mun/api/mappers/team_response_mapper.dart';
 import 'package:hug_mun/api/mappers/user_response_mapper.dart';
 import 'package:hug_mun/api/model/response/login_response_model.dart';
+import 'package:hug_mun/api/model/response/team_response.dart';
 import 'package:hug_mun/api/model/response/user_me_response.dart';
 import 'package:hug_mun/api/services/rest_service.dart';
 
@@ -25,4 +27,7 @@ class UserService extends RestService {
 
   Future<List<String>> known() async =>
       _httpClient.get(UserResponseMapper.known, "$baseUrl/known");
+
+  Future<List<TeamResponse>> team(String userId) async =>
+      _httpClient.get(TeamResponseMapper.teams, "$baseUrl/$userId/team");
 }
