@@ -13,6 +13,7 @@ class ChannelResponse {
   double? totalMsgCount;
   double? extraUpdateAt;
   String? creatorId;
+  String? schemaId;
   String? teamDisplayName;
   String? teamName;
   double? teamUpdateAt;
@@ -33,6 +34,7 @@ class ChannelResponse {
     totalMsgCount = json['total_msg_count'] as double?;
     extraUpdateAt = json['extra_update_at'] as double?;
     creatorId = json['creator_id'] as String?;
+    schemaId = json['schema_id'] as String?;
     teamDisplayName = json['team_display_name'] as String?;
     teamName = json['team_name'] as String?;
     teamUpdateAt = json['team_update_at'] as double?;
@@ -54,6 +56,7 @@ class ChannelResponse {
         'total_msg_count': totalMsgCount,
         'extra_update_at': extraUpdateAt,
         'creator_id': creatorId,
+        'schema_id': schemaId,
         'team_display_name': teamDisplayName,
         'team_name': teamName,
         'team_update_at': teamUpdateAt,
@@ -75,6 +78,7 @@ class ChannelResponse {
       this.totalMsgCount,
       this.extraUpdateAt,
       this.creatorId,
+      this.schemaId,
       this.teamDisplayName,
       this.teamName,
       this.teamUpdateAt,

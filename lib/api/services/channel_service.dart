@@ -29,4 +29,10 @@ class ChannelService extends RestService {
         "include_total_count": "false",
         "exclude_policy_constrained": "false"
       });
+
+  Future<List<ChannelResponse>> getPublicChannels(String teamId) async =>
+      _httpClient.get(ChannelResponseMapper.channels, baseUrl, parameters: {
+        "page": "0",
+        "per_page": "0",
+      });
 }
