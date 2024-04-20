@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:hug_mun/api/client.dart';
 import 'package:hug_mun/api/model/response/login_response_model.dart';
+import 'package:hug_mun/api/model/response/team_response.dart';
 import 'package:hug_mun/api/services/user_service.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -80,6 +81,46 @@ void main() async {
             headers: anyHeader(),
           )).called(1);
     });
+
+    test("should get user team", () async {
+      // given
+      final response = [_modelTeamResponse()];
+
+      when(() => client.get(
+            any(),
+            headers: anyHeader(),
+          )).thenAnswer(((_) async => Response(jsonEncode(response), 200)));
+
+      // when
+      final teams = await userService.team("6bqk6qowc7ycurpmoed5rnmhqh");
+
+      // then
+      teams.length.shouldBeEqualTo(response.length);
+      final teamFirst = response[0];
+      teams[0].id.shouldBeEqualTo(teamFirst.id!);
+      teams[0].createAt.shouldBeEqualTo(teamFirst.createAt!);
+      teams[0].updateAt.shouldBeEqualTo(teamFirst.updateAt!);
+      teams[0].deleteAt.shouldBeEqualTo(teamFirst.deleteAt!);
+      teams[0].displayName.shouldBeEqualTo(teamFirst.displayName!);
+      teams[0].name.shouldBeEqualTo(teamFirst.name!);
+      teams[0].description.shouldBeEqualTo(teamFirst.description!);
+      teams[0].email.shouldBeEqualTo(teamFirst.email!);
+      teams[0].type.shouldBeEqualTo(teamFirst.type!);
+      teams[0].companyName.shouldBeEqualTo(teamFirst.companyName!);
+      teams[0].allowedDomains.shouldBeEqualTo(teamFirst.allowedDomains!);
+      teams[0].inviteId.shouldBeEqualTo(teamFirst.inviteId!);
+      teams[0].allowOpenInvite.shouldBeEqualTo(teamFirst.allowOpenInvite!);
+      teams[0].schemeId.shouldBeEqualTo(teamFirst.schemeId!);
+      teams[0].groupConstrained.shouldBeEqualTo(teamFirst.groupConstrained!);
+      teams[0]
+          .cloudLimitsArchived
+          .shouldBeEqualTo(teamFirst.cloudLimitsArchived!);
+
+      verify(() => client.get(
+            any(),
+            headers: anyHeader(),
+          )).called(1);
+    });
   });
 }
 
@@ -90,3 +131,21 @@ LoginModelResponse _modelResponse() {
   model.nickname = _nickName;
   return model;
 }
+
+TeamResponse _modelTeamResponse() => TeamResponse(
+    id: "dj4p9fu4rpnspehpbgznywskbh",
+    createAt: 1695306008859,
+    updateAt: 1695306008850,
+    deleteAt: 0,
+    displayName: "test",
+    name: "test",
+    description: "description",
+    email: "",
+    type: "O",
+    companyName: "test company",
+    allowedDomains: "",
+    inviteId: "ywkjm66np7rude3faqk97szj6h",
+    allowOpenInvite: false,
+    schemeId: "",
+    groupConstrained: false,
+    cloudLimitsArchived: false);
