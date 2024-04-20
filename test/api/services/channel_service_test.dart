@@ -22,7 +22,7 @@ void main() async {
     test("should get all channels", () async {
       // given
       final model = _modelResponse();
-      when(() => client.get(any(), headers: any(named: 'headers')))
+      when(() => client.get(any(), headers: anyHeader()))
           .thenAnswer(((_) async => Response(jsonEncode(model), 200)));
 
       // when
@@ -33,7 +33,7 @@ void main() async {
 
       verify(() => client.get(
             any(),
-            headers: any(named: 'headers'),
+            headers: anyHeader(),
           )).called(1);
     });
   });

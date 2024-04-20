@@ -1,11 +1,13 @@
 import 'package:hug_mun/api/client.dart';
 import 'package:hug_mun/api/mappers/channel_response_mapper.dart';
 import 'package:hug_mun/api/model/response/channel_response.dart';
+import 'package:hug_mun/api/services/rest_service.dart';
 
-class ChannelService {
+class ChannelService extends RestService {
   final HugMunHttpClient _httpClient;
 
-  ChannelService(this._httpClient);
+  ChannelService(this._httpClient)
+      : super(httpClient: _httpClient, baseUrl: '/channels');
 
   ///
   ///Parameters:
@@ -18,13 +20,13 @@ class ChannelService {
   /// exclude_policy_constrained - If set to true, channels which are part of a data retention policy will be excluded. The sysconsole_read_compliance permission is required to use this parameter. Minimum server version: 5.35
   ///
   Future<List<ChannelResponse>> getChannels() async =>
-      _httpClient.get(ChannelResponseMapper.channels, "/channels", parameters: {
+      _httpClient.get(ChannelResponseMapper.channels, baseUrl, parameters: {
         "not_associated_to_group": '',
-        "page": 0,
-        "per_page": 0,
-        "exclude_default_channels": false,
-        "include_deleted": false,
-        "include_total_count": false,
-        "exclude_policy_constrained": false
+        "page": "0",
+        "per_page": "0",
+        "exclude_default_channels": "false",
+        "include_deleted": "false",
+        "include_total_count": "false",
+        "exclude_policy_constrained": "false"
       });
 }
