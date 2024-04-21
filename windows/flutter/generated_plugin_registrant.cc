@@ -10,8 +10,8 @@
 #include <webcrypto/webcrypto_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
-    SimpleSecureStorageWindowsPluginCApiRegisterWithRegistrar(
-            registry->GetRegistrarForPlugin("SimpleSecureStorageWindowsPluginCApi"));
-    WebcryptoPluginRegisterWithRegistrar(
-            registry->GetRegistrarForPlugin("WebcryptoPlugin"));
+  SimpleSecureStorageWindowsPluginCApiRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("SimpleSecureStorageWindowsPluginCApi"));
+  WebcryptoPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("WebcryptoPlugin"));
 }

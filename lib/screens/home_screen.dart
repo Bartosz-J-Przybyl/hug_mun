@@ -16,11 +16,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       drawer: const MainDrawer(),
       appBar: AppBar(
-        iconTheme:
-            IconThemeData(color: Theme.of(context).colorScheme.background),
+        iconTheme: IconThemeData(color: Theme.of(context).colorScheme.surface),
         title: const Text(_appBarTitle),
         actions: <Widget>[
           IconButton(
@@ -46,7 +45,7 @@ class HomeScreen extends StatelessWidget {
             },
           ),
         ],
-        backgroundColor: Theme.of(context).colorScheme.onBackground,
+        backgroundColor: Theme.of(context).colorScheme.onSurface,
       ),
       body: _UserData(),
     );
@@ -83,20 +82,6 @@ class _UserData extends StatelessWidget {
                     color: Theme.of(context).colorScheme.onPrimary,
                   ),
                 ),
-                ElevatedButton(
-                  key: const Key('loginForm_continue_raisedButton'),
-                  onPressed: () async {
-                    context.read<AuthenticationBloc>().add(
-                          AuthenticationLogoutRequested(),
-                        );
-                  },
-                  child: Text(
-                    'Logout',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onBackground,
-                    ),
-                  ),
-                )
               ],
             )),
           );

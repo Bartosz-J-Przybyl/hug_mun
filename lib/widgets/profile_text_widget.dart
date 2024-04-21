@@ -17,12 +17,12 @@ class ProfileTextWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         shape: BoxShape.rectangle,
-        color: Theme.of(context).colorScheme.onBackground.withOpacity(0.1),
+        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
       ),
       child: Text(
         text,
         style: GoogleFonts.firaCode().copyWith(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
           fontSize: size,
         ),
       ),

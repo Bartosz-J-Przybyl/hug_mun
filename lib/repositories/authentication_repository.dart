@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:fpdart/fpdart.dart';
+
 import 'package:get_it/get_it.dart';
-import 'package:hug_mun/api/exceptions/client_exception.dart';
+
 import 'package:hug_mun/api/model/response/login_response_model.dart';
-import 'package:hug_mun/api/model/response/mattermost_error_response.dart';
+
 import 'package:hug_mun/api/services/user_service.dart';
 
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }

@@ -127,7 +127,6 @@ class LoginModelResponse extends Equatable {
   }
 
   factory LoginModelResponse.fromJson(Map<String, dynamic> json) {
-    ;
     return LoginModelResponse(
       id: json["id"],
       createAt: json["create_at"],
