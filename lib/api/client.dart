@@ -35,8 +35,7 @@ class HugMunHttpClient {
     return uri.replace(queryParameters: parameters);
   }
 
-  Future<T> post<T>(T Function(Map<String, dynamic> object) mapper,
-      String endpoint,
+  Future<T> post<T, PAYLOAD>(T Function(PAYLOAD object) mapper, String endpoint,
       {Map<String, String>? headers,
         String? body,
         Encoding? encoding,

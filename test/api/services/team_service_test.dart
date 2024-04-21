@@ -5,11 +5,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:hug_mun/api/client.dart';
-import 'package:hug_mun/api/model/response/channel_response.dart';
 import 'package:hug_mun/api/services/team_service.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../web_test_utils.dart';
+import 'http_response_factory.dart';
 
 void main() async {
   setUpAll(() => registerFallbackValue(FakeUri()));
@@ -21,7 +21,7 @@ void main() async {
   group(teamService, () {
     test("should get team public channels", () async {
       // given
-      final model = _modelResponse();
+      final model = [HttpResponseFactory.modelTeamResponse()];
       const teamId = "dj4p9fu4rpnspehpbgznywskbh";
 
       when(() => client.get(any(), headers: anyHeader()))
@@ -31,7 +31,7 @@ void main() async {
       final channels = await teamService.getPublicChannels(teamId);
 
       // then
-      channels.length.shouldBeEqualTo(5);
+      channels.length.shouldBeEqualTo(1);
 
       verify(() => client.get(
             any(),
@@ -40,6 +40,3 @@ void main() async {
     });
   });
 }
-
-List<ChannelResponse> _modelResponse() =>
-    List.generate(5, (index) => ChannelResponse(id: "$index"));

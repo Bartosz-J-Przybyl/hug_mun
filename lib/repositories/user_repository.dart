@@ -21,7 +21,6 @@ class UserRepository {
     _user = User(
         response.id!,
         response.username,
-        response.authData,
         response.authService,
         response.email,
         response.nickname,

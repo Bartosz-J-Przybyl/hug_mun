@@ -5,11 +5,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:hug_mun/api/client.dart';
-import 'package:hug_mun/api/model/response/channel_response.dart';
 import 'package:hug_mun/api/services/channel_service.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../web_test_utils.dart';
+import 'http_response_factory.dart';
 
 void main() async {
   setUpAll(() => registerFallbackValue(FakeUri()));
@@ -21,7 +21,7 @@ void main() async {
   group(channelService, () {
     test("should get all channels", () async {
       // given
-      final model = _modelResponse();
+      final model = HttpResponseFactory.channelModelsResponse();
       when(() => client.get(any(), headers: anyHeader()))
           .thenAnswer(((_) async => Response(jsonEncode(model), 200)));
 
@@ -38,6 +38,3 @@ void main() async {
     });
   });
 }
-
-List<ChannelResponse> _modelResponse() =>
-    List.generate(5, (index) => ChannelResponse(id: "$index"));
