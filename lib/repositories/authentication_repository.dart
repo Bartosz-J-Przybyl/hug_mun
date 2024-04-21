@@ -1,10 +1,7 @@
 import 'dart:async';
 
-
 import 'package:get_it/get_it.dart';
-
 import 'package:hug_mun/api/model/response/login_response_model.dart';
-
 import 'package:hug_mun/api/services/user_service.dart';
 
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }
@@ -19,9 +16,11 @@ class AuthenticationRepository {
   }
 
   Future<LoginModelResponse> login(
+      Function(LoginModelResponse user) onSuccessSave,
       {required String username, required String password}) async {
     try {
       final response = await _userService.login(username, password);
+      onSuccessSave(response);
       _controller.add(AuthenticationStatus.authenticated);
       return response;
     } catch (error) {

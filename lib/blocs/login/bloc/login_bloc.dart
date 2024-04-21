@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
@@ -103,12 +104,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final username = credentials[0];
         final password = credentials[1];
         yield state.copyWith(status: FormzStatus.submissionInProgress);
-        final user = await _authenticationRepository.login(
+        await _authenticationRepository.login(
+          (user) async => await _userRepository.save(user),
           username: credentials[0],
           password: credentials[1],
         );
         await onSuccess([username, password]);
-        await _userRepository.save(user);
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } else {
         yield state.copyWith(status: FormzStatus.submissionCanceled);

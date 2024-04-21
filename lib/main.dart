@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            lazy: false,
+            lazy: true,
             create: (_) => AuthenticationBloc(
                 authenticationRepository: authenticationRepository,
                 userRepository: userRepository)),
