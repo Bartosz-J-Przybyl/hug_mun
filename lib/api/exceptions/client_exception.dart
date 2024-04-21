@@ -5,18 +5,25 @@ class ClientException implements Exception {
   final String? message;
   final String? requestId;
   final int? statusCode;
-  final bool? isOauth;
+  final bool? isOAuth;
 
   ClientException(
     this.id,
     this.message,
     this.requestId,
     this.statusCode,
-    this.isOauth,
+    this.isOAuth,
   );
 
   static from(MattermostErrorResponse response) {
     ClientException(response.id, response.message, response.requestId,
-        response.statusCode, response.isOauth);
+        response.statusCode, response.isOAuth);
   }
+
+  MattermostErrorResponse toResponse() => MattermostErrorResponse(
+      id: id,
+      message: message,
+      requestId: requestId,
+      statusCode: statusCode,
+      isOAuth: isOAuth);
 }

@@ -52,8 +52,15 @@ class HugMunHttpClient {
         headers: headers,
         encoding: encoding,
       );
-      return _handleResponse(response, mapper)
-          .fold((l) => throw ce.ClientException.from(l), (r) => r);
+      final either = _handleResponse(response, mapper);
+      if (either.isLeft()) {
+        final left = either.getLeft();
+        final error = left.getOrElse(() => throw Exception(""));
+        throw ce.ClientException.from(error);
+      } else {
+        final right = either.getRight();
+        return right.getOrElse(() => throw Exception(""));
+      }
     } catch (exception, stackTrace) {
       _handleException(exception);
       debugPrintStack(stackTrace: stackTrace);

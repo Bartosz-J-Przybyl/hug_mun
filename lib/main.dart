@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hug_mun/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:hug_mun/blocs/login/bloc/login_bloc.dart';
 import 'package:hug_mun/repositories/authentication_repository.dart';
 import 'package:hug_mun/repositories/user_repository.dart';
 import 'package:hug_mun/screens/auth_screen.dart';
@@ -24,18 +25,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final authenticationRepository = GetIt.instance<AuthenticationRepository>();
     final userRepository = GetIt.instance<UserRepository>();
-    return MultiRepositoryProvider(
+    return MultiBlocProvider(
       providers: [
-        RepositoryProvider<AuthenticationRepository>(
-            create: (context) => authenticationRepository),
-        RepositoryProvider<UserRepository>(create: (context) => userRepository),
+        BlocProvider(
+            lazy: false,
+            create: (_) => AuthenticationBloc(
+                authenticationRepository: authenticationRepository,
+                userRepository: userRepository)),
+        BlocProvider(
+            lazy: false,
+            create: (_) => LoginBloc(
+                  authenticationRepository: authenticationRepository,
+                  userRepository: userRepository,
+                ))
       ],
-      child: BlocProvider(
-        create: (_) => AuthenticationBloc(
-            authenticationRepository: authenticationRepository,
-            userRepository: userRepository),
-        child: const MainApp(),
-      ),
+      child: const MainApp(),
     );
   }
 }

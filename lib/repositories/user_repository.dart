@@ -11,8 +11,9 @@ class UserRepository {
   Future<User?> getUser() async {
     if (_user != null) {
       return _user;
+    } else {
+      _user = User.empty;
     }
-    _user = User.empty;
     return _user;
   }
 
