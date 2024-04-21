@@ -27,11 +27,16 @@ class Timezone extends Equatable {
         automaticTimezone: automaticTimezone ?? this.automaticTimezone,
       );
 
-  factory Timezone.fromJson(Map<String, dynamic> json) => Timezone(
-        useAutomaticTimezone: json["useAutomaticTimezone"],
-        manualTimezone: json["manualTimezone"],
-        automaticTimezone: json["automaticTimezone"],
-      );
+  factory Timezone.fromJson(Map<String, dynamic> json) {
+    final useAutomaticTimezone = json["useAutomaticTimezone"];
+    return Timezone(
+      useAutomaticTimezone: useAutomaticTimezone != null
+          ? bool.parse(useAutomaticTimezone)
+          : false,
+      manualTimezone: json["manualTimezone"],
+      automaticTimezone: json["automaticTimezone"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "useAutomaticTimezone": useAutomaticTimezone,

@@ -126,32 +126,33 @@ class LoginModelResponse extends Equatable {
     );
   }
 
-  factory LoginModelResponse.fromJson(Map<String, dynamic> json) =>
-      LoginModelResponse(
-        id: json["id"],
-        createAt: json["create_at"],
-        updateAt: json["update_at"],
-        deleteAt: json["delete_at"],
-        username: json["username"],
-        authData: json["auth_data"],
-        authService: json["auth_service"],
-        email: json["email"],
-        nickname: json["nickname"],
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        position: json["position"],
-        roles: json["roles"],
-        notifyProps: json["notify_props"] == null
-            ? null
-            : NotifyProps.fromJson(json["notify_props"]),
-        lastPasswordUpdate: json["last_password_update"],
-        lastPictureUpdate: json["last_picture_update"],
-        locale: json["locale"],
-        timezone: json["timezone"] == null
-            ? null
-            : Timezone.fromJson(json["timezone"]),
-        disableWelcomeEmail: json["disable_welcome_email"],
-      );
+  factory LoginModelResponse.fromJson(Map<String, dynamic> json) {
+    ;
+    return LoginModelResponse(
+      id: json["id"],
+      createAt: json["create_at"],
+      updateAt: json["update_at"],
+      deleteAt: json["delete_at"],
+      username: json["username"],
+      authData: json["auth_data"],
+      authService: json["auth_service"],
+      email: json["email"],
+      nickname: json["nickname"],
+      firstName: json["first_name"],
+      lastName: json["last_name"],
+      position: json["position"],
+      roles: json["roles"],
+      notifyProps: json["notify_props"] == null
+          ? null
+          : NotifyProps.fromJson(json["notify_props"]),
+      lastPasswordUpdate: json["last_password_update"],
+      lastPictureUpdate: json["last_picture_update"],
+      locale: json["locale"],
+      timezone:
+          json["timezone"] == null ? null : Timezone.fromJson(json["timezone"]),
+      disableWelcomeEmail: json["disable_welcome_email"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,
