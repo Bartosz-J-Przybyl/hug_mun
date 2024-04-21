@@ -29,7 +29,7 @@ class MainDrawer extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurface,
               image: const DecorationImage(
                 image: AssetImage(
-                  Assets.background2,
+                  Assets.background3,
                 ),
                 fit: BoxFit.cover,
               ),
