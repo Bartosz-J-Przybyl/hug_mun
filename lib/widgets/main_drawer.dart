@@ -18,179 +18,176 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-      buildWhen: (previous, current) => previous.user != current.user,
-      builder: (context, state) {
-        final username = "${state.user.username}";
-        final email = "${state.user.email}";
-        return Drawer(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          child: Column(
-            children: [
-              Container(
-                height: 300,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onBackground,
-                  image: const DecorationImage(
-                    image: AssetImage(
-                      Assets.background2,
-                    ),
-                    fit: BoxFit.cover,
-                  ),
+    return Drawer(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      child: Column(
+        children: [
+          Container(
+            height: 300,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.onSurface,
+              image: const DecorationImage(
+                image: AssetImage(
+                  Assets.background2,
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 10,
-                        top: 65,
-                        right: 10,
-                      ),
-                      child: Column(
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 10,
+                    top: 65,
+                    right: 10,
+                  ),
+                  child: Column(
+                    children: [
+                      Stack(
                         children: [
-                          Stack(
-                            children: [
-                              Container(
-                                width: 130,
-                                height: 130,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 3,
-                                    color: Colors.white,
-                                  ),
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      spreadRadius: 2,
-                                      blurRadius: 10,
-                                      color: Colors.black.withOpacity(0.9),
-                                      offset: const Offset(0, 10),
-                                    ),
-                                  ],
-                                  image: const DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: AssetImage(
-                                      Assets.background,
-                                    ),
-                                  ),
+                          Container(
+                            width: 130,
+                            height: 130,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 3,
+                                color: Colors.white,
+                              ),
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                  color: Colors.black.withOpacity(0.9),
+                                  offset: const Offset(0, 10),
+                                ),
+                              ],
+                              image: const DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                  Assets.background,
                                 ),
                               ),
-                              Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground,
-                                    border: Border.all(
-                                      width: 3,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  child: IconButton(
-                                    icon: Icon(
-                                      Icons.camera_alt,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background,
-                                    ),
-                                    iconSize: 20,
-                                    onPressed: () {},
-                                  ),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Theme.of(context).colorScheme.onSurface,
+                                border: Border.all(
+                                  width: 3,
+                                  color: Colors.white,
                                 ),
+                              ),
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.camera_alt,
+                                  color: Theme.of(context).colorScheme.surface,
+                                ),
+                                iconSize: 20,
+                                onPressed: () {},
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                        buildWhen: (previous, current) =>
+                            previous.user != current.user,
+                        builder: (context, state) {
+                          final username = "${state.user.username}";
+                          final email = "${state.user.email}";
+                          return Column(
+                            children: [
+                              ProfileTextWidget(
+                                text: username,
+                                size: 16,
+                              ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              ProfileTextWidget(
+                                text: email,
+                                size: 12,
                               ),
                             ],
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          ProfileTextWidget(
-                            text: username,
-                            size: 16,
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          ProfileTextWidget(
-                            text: email,
-                            size: 12,
-                          ),
-                        ],
+                          );
+                        },
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 40, top: 45),
-                      child: Column(
-                        children: [
-                          IconContainerWidget(
-                            icon: Icon(Icons.mode_night_sharp),
-                          ),
-                          SizedBox(
-                            height: 130,
-                          ),
-                          IconContainerWidget(
-                            icon: Icon(Icons.photo),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                    ],
+                  ),
                 ),
+                // const SizedBox(
+                //   width: 80,
+                // ),
+                const Padding(
+                  padding: EdgeInsets.only(
+                    top: 45,
+                  ),
+                  child: Column(
+                    children: [
+                      IconContainerWidget(
+                        icon: Icon(Icons.mode_night_sharp),
+                      ),
+                      SizedBox(
+                        height: 130,
+                      ),
+                      IconContainerWidget(
+                        icon: Icon(Icons.photo),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          Column(
+            children: [
+              const DrawerListTile(
+                icon: Icons.person_sharp,
+                tileText: _accountsTitle,
               ),
-              Column(
-                children: [
-                  const DrawerListTile(
-                    icon: Icons.person_sharp,
-                    tileText: _accountsTitle,
-                  ),
-                  const DrawerListTile(
-                    icon: Icons.palette,
-                    tileText: _colorPaletTitle,
-                  ),
-                  const DrawerListTile(
-                    tileText: _notificationTitle,
-                    icon: Icons.notifications,
-                  ),
-                  const DrawerListTile(
-                    tileText: _settingsTitle,
-                    icon: Icons.settings,
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.logout,
-                      size: 23,
-                      color: Theme.of(context).iconTheme.color,
-                    ),
-                    title: Text(_logOutTitle,
-                        style: Theme.of(context).textTheme.titleSmall!),
-                    onTap: () {
-                      {
-                        //  TODO https://huginn-muninn.atlassian.net/browse/HM-6
-                        // FirebaseAuth.instance.signOut().then(
-                        //   (value) {
-                        //     Navigator.push(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //         builder: (context) => const MyApp(),
-                        //       ),
-                        //     );
-                        //   },
-                        // );
-                      }
-                    },
-                  ),
-                ],
+              const DrawerListTile(
+                icon: Icons.palette,
+                tileText: _colorPaletTitle,
+              ),
+              const DrawerListTile(
+                tileText: _notificationTitle,
+                icon: Icons.notifications,
+              ),
+              const DrawerListTile(
+                tileText: _settingsTitle,
+                icon: Icons.settings,
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.logout,
+                  size: 23,
+                  color: Theme.of(context).iconTheme.color,
+                ),
+                title: Text(_logOutTitle,
+                    style: Theme.of(context).textTheme.titleSmall!),
+                onTap: () async {
+                  context.read<AuthenticationBloc>().add(
+                        AuthenticationLogoutRequested(),
+                      );
+                },
               ),
             ],
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

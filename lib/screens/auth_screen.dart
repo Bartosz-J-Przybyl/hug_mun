@@ -39,7 +39,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Theme.of(context).colorScheme.background),
+                            color: Theme.of(context).colorScheme.surface),
                       ),
                     ),
                     BackdropFilter(
@@ -60,7 +60,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: Card(
                         color: Theme.of(context)
                             .colorScheme
-                            .onBackground
+                            .onSurface
                             .withOpacity(0.30),
                         margin: const EdgeInsets.all(20),
                         child: SingleChildScrollView(
@@ -90,7 +90,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: Text(
                     isLogin ? "Create a account" : "Login",
                     style: TextStyle(
-                        color: Theme.of(context).colorScheme.background),
+                        color: Theme.of(context).colorScheme.surface),
                   ),
                 ),
               ],
@@ -151,7 +151,7 @@ class _LoginButton extends StatelessWidget {
                     child: Text(
                       'Login',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                   ),
