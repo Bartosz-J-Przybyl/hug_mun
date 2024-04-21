@@ -6,7 +6,7 @@ class MattermostErrorResponse extends Equatable {
     required this.message,
     required this.requestId,
     required this.statusCode,
-    required this.isOauth,
+    required this.isOAuth,
   });
 
   final String? id;
@@ -21,7 +21,7 @@ class MattermostErrorResponse extends Equatable {
   final int? statusCode;
   static const String statusCodeKey = "status_code";
 
-  final bool? isOauth;
+  final bool? isOAuth;
   static const String isOauthKey = "is_oauth";
 
   MattermostErrorResponse copyWith({
@@ -36,7 +36,7 @@ class MattermostErrorResponse extends Equatable {
         message: message ?? this.message,
         requestId: requestId ?? this.requestId,
         statusCode: statusCode ?? this.statusCode,
-        isOauth: isOauth ?? this.isOauth,
+        isOAuth: isOauth ?? this.isOAuth,
       );
 
   factory MattermostErrorResponse.fromJson(Map<String, dynamic> json) =>
@@ -45,7 +45,7 @@ class MattermostErrorResponse extends Equatable {
         message: json["message"],
         requestId: json["request_id"],
         statusCode: json["status_code"],
-        isOauth: json["is_oauth"],
+        isOAuth: json["is_oauth"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -53,11 +53,11 @@ class MattermostErrorResponse extends Equatable {
         "message": message,
         "request_id": requestId,
         "status_code": statusCode,
-        "is_oauth": isOauth,
+        "is_oauth": isOAuth,
       };
 
   @override
-  String toString() => "$id, $message, $requestId, $statusCode, $isOauth, ";
+  String toString() => "$id, $message, $requestId, $statusCode, $isOAuth, ";
 
   @override
   List<Object?> get props => [
@@ -65,6 +65,6 @@ class MattermostErrorResponse extends Equatable {
         message,
         requestId,
         statusCode,
-        isOauth,
+        isOAuth,
       ];
 }

@@ -83,6 +83,20 @@ class _UserData extends StatelessWidget {
                     color: Theme.of(context).colorScheme.onPrimary,
                   ),
                 ),
+                ElevatedButton(
+                  key: const Key('loginForm_continue_raisedButton'),
+                  onPressed: () async {
+                    context.read<AuthenticationBloc>().add(
+                          AuthenticationLogoutRequested(),
+                        );
+                  },
+                  child: Text(
+                    'Logout',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
+                  ),
+                )
               ],
             )),
           );

@@ -5,8 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:hug_mun/assets/assets.dart';
 import 'package:hug_mun/blocs/login/bloc/login_bloc.dart';
-import 'package:hug_mun/repositories/authentication_repository.dart';
-import 'package:hug_mun/repositories/user_repository.dart';
 import 'package:hug_mun/widgets/reusable_text_form_field.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -24,14 +22,8 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(
-        child: BlocProvider(
-          create: (context) => LoginBloc(
-            authenticationRepository:
-                RepositoryProvider.of<AuthenticationRepository>(context),
-            userRepository: RepositoryProvider.of<UserRepository>(context),
-          ),
+        backgroundColor: Colors.black,
+        body: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -105,16 +97,14 @@ class _AuthScreenState extends State<AuthScreen> {
             ),
           ),
         ),
-      ));
+      );
 }
 
 class _UserCredentialsForm extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
-        buildWhen: (previous, current) => previous.username != current.username,
-        builder: (context, state) {
-          return Column(
+  Widget build(BuildContext context) => BlocBuilder<LoginBloc, LoginState>(
+      buildWhen: (previous, current) => previous.username != current.username,
+      builder: (context, state) => Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ReusableTextFormField(
@@ -133,10 +123,15 @@ class _UserCredentialsForm extends StatelessWidget {
                 obscureText: true,
                 labelText: 'password',
               ),
+              // Row(
+              //   children: [
+              //     if (state.hasError()) {
+              //
+              //     }
+              //   ],
+              // )
             ],
-          );
-        });
-  }
+          ));
 }
 
 class _LoginButton extends StatelessWidget {

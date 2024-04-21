@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:get_it/get_it.dart';
 import 'package:hug_mun/models/user.dart';
 import 'package:hug_mun/repositories/authentication_repository.dart';
 import 'package:hug_mun/repositories/user_repository.dart';
+import 'package:hug_mun/services/secure_store_service.dart';
 
 part 'authentication_event.dart';
+
 part 'authentication_state.dart';
 
 class AuthenticationBloc
@@ -27,6 +30,9 @@ class AuthenticationBloc
     );
   }
 
+  final _secureStoreService = GetIt.instance.get<SecureStoreService>();
+  static const _storeKey = "localhost";
+
   @override
   Stream<AuthenticationState> mapEventToState(
     AuthenticationEvent event,
@@ -35,7 +41,8 @@ class AuthenticationBloc
     if (event is AuthenticationStatusChanged) {
       yield await _mapAuthenticationStatusChangedToState(event);
     } else if (event is AuthenticationLogoutRequested) {
-      _authenticationRepository.logOut();
+      await _secureStoreService.delete(_storeKey);
+      _authenticationRepository.logout();
     }
   }
 
