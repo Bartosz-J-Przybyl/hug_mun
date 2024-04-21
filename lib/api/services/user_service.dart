@@ -7,6 +7,7 @@ import 'package:hug_mun/api/mappers/user_response_mapper.dart';
 import 'package:hug_mun/api/model/response/login_response_model.dart';
 import 'package:hug_mun/api/model/response/team_response.dart';
 import 'package:hug_mun/api/model/response/user_me_response.dart';
+import 'package:hug_mun/api/model/response/user_model_response.dart';
 import 'package:hug_mun/api/services/rest_service.dart';
 
 class UserService extends RestService {
@@ -30,4 +31,11 @@ class UserService extends RestService {
 
   Future<List<TeamResponse>> team(String userId) async =>
       _httpClient.get(TeamResponseMapper.teams, "$baseUrl/$userId/team");
+
+  /// ## Query Parameters:
+  /// - int since: Only return users that have been modified since the given
+  ///   Unix timestamp (in milliseconds).
+  Future<List<UserModelResponse>> userByIds(List<String> ids) async =>
+      _httpClient.post(UserResponseMapper.users, "$baseUrl/ids",
+          body: jsonEncode(ids));
 }

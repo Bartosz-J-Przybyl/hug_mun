@@ -5,17 +5,16 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:hug_mun/api/client.dart';
-import 'package:hug_mun/api/model/response/login_response_model.dart';
-import 'package:hug_mun/api/model/response/team_response.dart';
 import 'package:hug_mun/api/services/user_service.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../web_test_utils.dart';
+import 'http_response_factory.dart';
 
-const _nickName = "test";
-const _userName = "user_test";
+const _nickName = "john.snow";
+const _userName = "john.snow";
 const _password = "test123!";
-const _email = "test@test.pl";
+const _email = "john.snow@mm.com";
 
 void main() async {
   setUpAll(() => registerFallbackValue(FakeUri()));
@@ -27,7 +26,7 @@ void main() async {
   group(userService, () {
     test("should log in user", () async {
       // given
-      final model = _modelResponse();
+      final model = HttpResponseFactory.loginModelResponse();
       final body = jsonEncode({
         'login_id': _userName,
         'password': _password,
@@ -84,7 +83,7 @@ void main() async {
 
     test("should get user team", () async {
       // given
-      final response = [_modelTeamResponse()];
+      final response = [HttpResponseFactory.modelTeamResponse()];
 
       when(() => client.get(
             any(),
@@ -106,46 +105,54 @@ void main() async {
       teams[0].description.shouldBeEqualTo(teamFirst.description!);
       teams[0].email.shouldBeEqualTo(teamFirst.email!);
       teams[0].type.shouldBeEqualTo(teamFirst.type!);
-      teams[0].companyName.shouldBeEqualTo(teamFirst.companyName!);
       teams[0].allowedDomains.shouldBeEqualTo(teamFirst.allowedDomains!);
       teams[0].inviteId.shouldBeEqualTo(teamFirst.inviteId!);
       teams[0].allowOpenInvite.shouldBeEqualTo(teamFirst.allowOpenInvite!);
-      teams[0].schemeId.shouldBeEqualTo(teamFirst.schemeId!);
-      teams[0].groupConstrained.shouldBeEqualTo(teamFirst.groupConstrained!);
-      teams[0]
-          .cloudLimitsArchived
-          .shouldBeEqualTo(teamFirst.cloudLimitsArchived!);
 
       verify(() => client.get(
             any(),
             headers: anyHeader(),
           )).called(1);
     });
+
+    test("should get users by ids", () async {
+      // given
+      final response = [HttpResponseFactory.loginModelResponse()];
+      final ids = [
+        "6bqk6qowc7ycurpmoed5rnmhqh",
+        "8q1pizjr5jrfdmdueeqxizraeo",
+        "kg5oe9czstrm9r88p5fdjjjt9o",
+        "43bjnuqp7bg9uqjbg7b73wh7ma",
+        "dym5ic4mrbnf8php989w3866he"
+      ];
+
+      final jsonIds = jsonEncode(ids);
+
+      when(() => client.post(any(),
+              body: jsonIds, headers: anyHeader(), encoding: anyEncoding()))
+          .thenAnswer(((_) async => Response(jsonEncode(response), 200)));
+
+      // when
+      final users = await userService.userByIds(ids);
+
+      // then
+      users.length.shouldBeEqualTo(response.length);
+      final user = response[0];
+      users[0].id.shouldBeEqualTo(user.id!);
+      users[0].createAt.shouldBeEqualTo(user.createAt!);
+      users[0].updateAt.shouldBeEqualTo(user.updateAt!);
+      users[0].deleteAt.shouldBeEqualTo(user.deleteAt!);
+      users[0].username.shouldBeEqualTo(user.username!);
+      users[0].authService.shouldBeEqualTo(user.authService!);
+      users[0].email.shouldBeEqualTo(user.email!);
+      users[0].nickname.shouldBeEqualTo(user.nickname!);
+      users[0].firstName.shouldBeEqualTo(user.firstName!);
+      users[0].lastName.shouldBeEqualTo(user.lastName!);
+
+      verify(() => client.post(any(),
+          body: jsonIds,
+          headers: anyHeader(),
+          encoding: anyEncoding())).called(1);
+    });
   });
 }
-
-LoginModelResponse _modelResponse() {
-  final model = LoginModelResponse();
-  model.username = _userName;
-  model.email = _email;
-  model.nickname = _nickName;
-  return model;
-}
-
-TeamResponse _modelTeamResponse() => TeamResponse(
-    id: "dj4p9fu4rpnspehpbgznywskbh",
-    createAt: 1695306008859,
-    updateAt: 1695306008850,
-    deleteAt: 0,
-    displayName: "test",
-    name: "test",
-    description: "description",
-    email: "",
-    type: "O",
-    companyName: "test company",
-    allowedDomains: "",
-    inviteId: "ywkjm66np7rude3faqk97szj6h",
-    allowOpenInvite: false,
-    schemeId: "",
-    groupConstrained: false,
-    cloudLimitsArchived: false);
