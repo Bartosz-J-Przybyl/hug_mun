@@ -56,7 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
         drawer: const MainDrawer(),
         appBar: AppBar(
           iconTheme:
