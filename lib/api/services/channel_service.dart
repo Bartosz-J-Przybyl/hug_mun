@@ -1,5 +1,6 @@
 import 'package:hug_mun/api/client.dart';
 import 'package:hug_mun/api/mappers/channel_response_mapper.dart';
+import 'package:hug_mun/api/model/response/channel_post_response.dart';
 import 'package:hug_mun/api/model/response/channel_response.dart';
 import 'package:hug_mun/api/services/rest_service.dart';
 
@@ -30,9 +31,18 @@ class ChannelService extends RestService {
         "exclude_policy_constrained": "false"
       });
 
-  Future<List<ChannelResponse>> getPublicChannels(String teamId) async =>
+  Future<List<ChannelResponse>> getPublicChannels() async =>
       _httpClient.get(ChannelResponseMapper.channels, baseUrl, parameters: {
         "page": "0",
         "per_page": "0",
       });
+
+  Future<List<ChannelPostResponse>> getChannelPosts(String channelId) async =>
+      _httpClient.get(
+          ChannelResponseMapper.channelPosts, "$baseUrl/$channelId/posts",
+          parameters: {
+            "skipFetchThreads": "false",
+            "collapsedThreads": "true",
+            "collapsedThreadsExtended": "false"
+          });
 }
