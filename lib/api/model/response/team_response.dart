@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class TeamResponse extends Equatable {
-  TeamResponse({
+  const TeamResponse({
     required this.id,
     required this.createAt,
     required this.updateAt,
