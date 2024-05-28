@@ -2,10 +2,16 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:hug_mun/api/client.dart';
+import 'package:hug_mun/api/mappers/team_channel_response_mapper.dart';
+import 'package:hug_mun/api/mappers/team_member_response_mapper.dart';
 import 'package:hug_mun/api/mappers/team_response_mapper.dart';
 import 'package:hug_mun/api/mappers/user_response_mapper.dart';
+import 'package:hug_mun/api/model/response/User_channel_member_response.dart';
 import 'package:hug_mun/api/model/response/login_response_model.dart';
+import 'package:hug_mun/api/model/response/team_channel_response.dart';
+import 'package:hug_mun/api/model/response/team_member_response.dart';
 import 'package:hug_mun/api/model/response/team_response.dart';
+import 'package:hug_mun/api/model/response/user_channel_category_response.dart';
 import 'package:hug_mun/api/model/response/user_me_response.dart';
 import 'package:hug_mun/api/model/response/user_model_response.dart';
 import 'package:hug_mun/api/services/rest_service.dart';
@@ -38,4 +44,23 @@ class UserService extends RestService {
   Future<List<UserModelResponse>> userByIds(List<String> ids) async =>
       _httpClient.post(UserResponseMapper.users, "$baseUrl/ids",
           body: jsonEncode(ids));
+
+  Future<List<TeamResponse>> myTeams() =>
+      _httpClient.get(TeamResponseMapper.teams, "$baseUrl/me/teams");
+
+  Future<List<TeamMemberResponse>> myTeamsMembers() => _httpClient.get(
+      TeamMemberResponseMapper.teamsMembers, "$baseUrl/me/teams");
+
+  Future<List<TeamChannelResponse>> myTeamsChannels() => _httpClient.get(
+      TeamChannelResponseMapper.teamChannels, "$baseUrl/me/channels");
+
+  Future<List<UserChannelMemberResponse>> channelsMembers(String channelId) =>
+      _httpClient.get(UserResponseMapper.channelMembers,
+          "$baseUrl/$channelId/channel_members",
+          parameters: {"page": "0", "per_page": "200"});
+
+  Future<List<UserChannelCategoryResponse>> userChannelCategories(
+          String userId, String teamId) =>
+      _httpClient.get(UserResponseMapper.userChannelCategories,
+          "$baseUrl/$userId/teams/$teamId/channels/categories");
 }
