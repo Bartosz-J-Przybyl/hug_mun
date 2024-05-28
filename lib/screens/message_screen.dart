@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hug_mun/assets/assets.dart';
 import 'package:hug_mun/models/chat_model.dart';
+import 'package:hug_mun/models/dummy_data.dart';
 import 'package:hug_mun/widgets/chat_list_tile.dart';
 import 'package:hug_mun/widgets/recent_list_tile.dart';
 
@@ -26,9 +27,9 @@ class MessageScreen extends StatelessWidget {
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
-                childCount: ChatModel.dummyData.length,
+                childCount: DummyData.length,
                 (BuildContext context, int index) {
-                  ChatModel model = ChatModel.dummyData[index];
+                  ChatModel model = DummyData[index];
                   return Expanded(
                     child: Column(
                       children: <Widget>[

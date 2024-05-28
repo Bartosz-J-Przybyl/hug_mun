@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hug_mun/models/chat_model.dart';
+import 'package:hug_mun/models/dummy_data.dart';
 
 class RecentTile extends StatelessWidget {
   const RecentTile({
@@ -29,9 +30,9 @@ class RecentTile extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: ChatModel.dummyData.length,
+                itemCount: DummyData.length,
                 itemBuilder: (BuildContext context, int index) {
-                  ChatModel _model = ChatModel.dummyData[index];
+                  ChatModel model = DummyData[index];
                   return Padding(
                     padding: EdgeInsets.only(top: 0, left: 8, right: 8),
                     child: SizedBox(
@@ -41,14 +42,14 @@ class RecentTile extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 24.0,
-                            backgroundImage: NetworkImage(_model.avatarUrl),
+                            backgroundImage: NetworkImage(model.avatarUrl),
                           ),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.only(
                                   top: 12, left: 5, right: 5),
                               child: Text(
-                                _model.name,
+                                model.name,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     letterSpacing: 0.3,
