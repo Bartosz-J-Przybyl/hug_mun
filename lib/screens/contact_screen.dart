@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hug_mun/assets/assets.dart';
 import 'package:hug_mun/models/chat_model.dart';
-import 'package:hug_mun/widgets/call_list_tile.dart';
+import 'package:hug_mun/widgets/contact_tile.dart';
 
-class CallScreen extends StatelessWidget {
-  const CallScreen({
+class ContactScreen extends StatelessWidget {
+  const ContactScreen({
     super.key,
   });
 
@@ -31,9 +31,9 @@ class CallScreen extends StatelessWidget {
                         Divider(
                           height: 12.0,
                         ),
-                        CallListTile(
+                        ContactTile(
+                          icon: Icons.more_horiz,
                           model: model,
-                          icon: Icons.call,
                         ),
                       ],
                     ),

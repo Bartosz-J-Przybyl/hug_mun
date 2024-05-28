@@ -28,21 +28,27 @@ class MessageScreen extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
                 childCount: ChatModel.dummyData.length,
                 (BuildContext context, int index) {
-                  ChatModel _model = ChatModel.dummyData[index];
+                  ChatModel model = ChatModel.dummyData[index];
                   return Expanded(
                     child: Column(
                       children: <Widget>[
-                        Divider(
+                        const Divider(
                           height: 12.0,
                         ),
                         ChatListTile(
-                          model: _model,
+                          model: model,
                           icon: Icons.arrow_forward,
                         ),
                       ],
                     ),
                   );
                 },
+              ),
+            ),
+            const SliverFillRemaining(
+              hasScrollBody: false,
+              child: SizedBox(
+                height: 100,
               ),
             ),
           ],
