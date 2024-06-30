@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:hug_mun/assets/assets.dart';
 import 'package:hug_mun/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:hug_mun/widgets/drawer_list_tile.dart';
@@ -13,13 +13,69 @@ const _logOutTitle = "Log out";
 const _accountsTitle = "Account Details";
 const _notificationTitle = "Notification";
 
-class MainDrawer extends StatelessWidget {
-  const MainDrawer({super.key});
+extension GlobalKeyExtension on GlobalKey {
+  Rect? get globalPaintBounds {
+    final renderObject = currentContext?.findRenderObject();
+    final translation = renderObject?.getTransformTo(null).getTranslation();
+    if (translation != null && renderObject?.paintBounds != null) {
+      final offset = Offset(translation.x, translation.y);
+      return renderObject!.paintBounds.shift(offset);
+    } else {
+      return null;
+    }
+  }
+}
+
+class MainDrawer extends StatefulWidget {
+  MainDrawer({
+    super.key,
+    this.letsDoThis,
+    this.onInit,
+    this.offset = Offset.zero,
+  });
+  final void Function()? letsDoThis;
+  final dynamic Function(GlobalKey)? onInit;
+  Offset? offset;
+
+  @override
+  State<MainDrawer> createState() => _MainDrawerState();
+}
+
+class _MainDrawerState extends State<MainDrawer> {
+  final fKey = GlobalKey();
+  bool click = true;
+  // final Icon modeIconL = Icon(Icons.light_mode_rounded);
+  // final Icon modeIconD = Icon(Icons.dark_mode_rounded);
+  // final Icon modeIcon = Icon(Icons.light_mode_rounded);
+  void letsDoThisShit() {
+    final rect = fKey.globalPaintBounds;
+    print('absolute coordinates on screen: ${rect}');
+
+    double left = rect!.left;
+    double top = rect!.top;
+    double right = rect!.right;
+    double bottom = rect!.bottom;
+
+    Offset newOffset = Offset(left, bottom);
+    print("newoffset1${newOffset}");
+    setState(() {
+      widget.offset = newOffset;
+      click = !click;
+      // if (modeIcon == modeIconL) {
+      //   modeIconD;
+      // } else {
+      //   modeIconL;
+      // }
+      print("newoffset2${widget.offset}");
+    });
+
+    widget.letsDoThis!();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).colorScheme.onSurface,
       child: Column(
         children: [
           Container(
@@ -54,7 +110,7 @@ class MainDrawer extends StatelessWidget {
                             decoration: BoxDecoration(
                               border: Border.all(
                                 width: 3,
-                                color: Colors.white,
+                                color: Theme.of(context).colorScheme.surface,
                               ),
                               shape: BoxShape.circle,
                               boxShadow: [
@@ -81,10 +137,13 @@ class MainDrawer extends StatelessWidget {
                               width: 40,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Theme.of(context).colorScheme.onSurface,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface
+                                    .withOpacity(0.7),
                                 border: Border.all(
                                   width: 3,
-                                  color: Colors.white,
+                                  color: Theme.of(context).colorScheme.surface,
                                 ),
                               ),
                               child: IconButton(
@@ -128,23 +187,25 @@ class MainDrawer extends StatelessWidget {
                     ],
                   ),
                 ),
-                // const SizedBox(
-                //   width: 80,
-                // ),
-                const Padding(
-                  padding: EdgeInsets.only(
+                Padding(
+                  padding: const EdgeInsets.only(
                     top: 45,
                   ),
                   child: Column(
                     children: [
-                      IconContainerWidget(
-                        icon: Icon(Icons.mode_night_sharp),
+                      ThemeModeIcon(
+                        key: fKey,
+                        letsDoThis: letsDoThisShit,
+                        icon: Icon((click == false)
+                            ? Icons.light_mode_rounded
+                            : Icons.dark_mode_rounded),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 130,
                       ),
                       IconContainerWidget(
-                        icon: Icon(Icons.photo),
+                        icon: const Icon(Icons.photo),
+                        onPressed: () {},
                       ),
                     ],
                   ),
@@ -174,10 +235,11 @@ class MainDrawer extends StatelessWidget {
                 leading: Icon(
                   Icons.logout,
                   size: 23,
-                  color: Theme.of(context).iconTheme.color,
+                  color: Theme.of(context).colorScheme.surface,
                 ),
                 title: Text(_logOutTitle,
-                    style: Theme.of(context).textTheme.titleSmall!),
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.surface)),
                 onTap: () async {
                   context.read<AuthenticationBloc>().add(
                         AuthenticationLogoutRequested(),
@@ -189,5 +251,19 @@ class MainDrawer extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class ThemeModeIcon extends StatelessWidget {
+  const ThemeModeIcon({
+    super.key,
+    this.letsDoThis,
+    required this.icon,
+  });
+  final void Function()? letsDoThis;
+  final Icon icon;
+  @override
+  Widget build(BuildContext context) {
+    return IconContainerWidget(icon: icon, onPressed: letsDoThis);
   }
 }

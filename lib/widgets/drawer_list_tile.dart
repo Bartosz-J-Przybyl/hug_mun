@@ -16,9 +16,12 @@ class DrawerListTile extends StatelessWidget {
       leading: Icon(
         icon,
         size: 23,
-        color: Theme.of(context).iconTheme.color,
+        color: Theme.of(context).colorScheme.surface,
       ),
-      title: Text(tileText, style: Theme.of(context).textTheme.titleSmall!),
+      title: Text(
+        tileText,
+        style: TextStyle(color: Theme.of(context).colorScheme.surface),
+      ),
     );
   }
 }

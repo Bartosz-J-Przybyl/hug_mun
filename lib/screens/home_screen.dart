@@ -11,10 +11,15 @@ const _appBarTitle = "Welcome";
 const _craTitle = 'Cra!!!';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+    this.letsDoThis,
+  });
+  final Function()? letsDoThis;
+  
 
   static Route route() =>
-      MaterialPageRoute<void>(builder: (ctx) => const HomeScreen());
+      MaterialPageRoute<void>(builder: (ctx) => HomeScreen());
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -36,12 +41,17 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
     items = [
       NavModel(page: const TabPage(tab: 1), navKey: messageNavKey),
       NavModel(page: const TabPage(tab: 2), navKey: friendNavKey),
       NavModel(page: const TabPage(tab: 3), navKey: gropupsNavKey),
       NavModel(page: const TabPage(tab: 4), navKey: callNavKey),
     ];
+  }
+
+  void _letsDoThisShit() {
+    widget.letsDoThis!();
   }
 
   @override
@@ -56,7 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
       child: Scaffold(
-        drawer: const MainDrawer(),
+        drawer: MainDrawer(
+          letsDoThis: _letsDoThisShit, 
+        ),
         appBar: AppBar(
           iconTheme:
               IconThemeData(color: Theme.of(context).colorScheme.surface),
@@ -66,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Image.asset(
                 Assets.imagesCrow,
                 width: 60,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.surface,
                 fit: BoxFit.cover,
               ),
               tooltip: 'Show Snackbar',

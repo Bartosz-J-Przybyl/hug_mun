@@ -10,7 +10,7 @@ class RecentTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
       margin: EdgeInsets.all(8),
       elevation: 0,
       child: SizedBox(

@@ -15,7 +15,7 @@ class ChatListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
       ),
       child: ListTile(
         leading: CircleAvatar(
