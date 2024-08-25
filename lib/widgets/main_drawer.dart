@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hug_mun/assets/assets.dart';
 import 'package:hug_mun/blocs/authentication/bloc/authentication_bloc.dart';
@@ -29,13 +28,12 @@ extension GlobalKeyExtension on GlobalKey {
 class MainDrawer extends StatefulWidget {
   MainDrawer({
     super.key,
-    this.letsDoThis,
+    this.getThemeIconOffset,
     this.onInit,
-    this.offset = Offset.zero,
   });
-  final void Function()? letsDoThis;
+
+  final void Function(Offset)? getThemeIconOffset;
   final dynamic Function(GlobalKey)? onInit;
-  Offset? offset;
 
   @override
   State<MainDrawer> createState() => _MainDrawerState();
@@ -44,32 +42,15 @@ class MainDrawer extends StatefulWidget {
 class _MainDrawerState extends State<MainDrawer> {
   final fKey = GlobalKey();
   bool click = true;
-  // final Icon modeIconL = Icon(Icons.light_mode_rounded);
-  // final Icon modeIconD = Icon(Icons.dark_mode_rounded);
-  // final Icon modeIcon = Icon(Icons.light_mode_rounded);
-  void letsDoThisShit() {
-    final rect = fKey.globalPaintBounds;
-    print('absolute coordinates on screen: ${rect}');
 
-    double left = rect!.left;
-    double top = rect!.top;
-    double right = rect!.right;
-    double bottom = rect!.bottom;
-
-    Offset newOffset = Offset(left, bottom);
-    print("newoffset1${newOffset}");
+  void getThemeIconOffset() {
+    final rect = fKey.globalPaintBounds!;
+    print('absolute coordinates on screen: $rect');
     setState(() {
-      widget.offset = newOffset;
       click = !click;
-      // if (modeIcon == modeIconL) {
-      //   modeIconD;
-      // } else {
-      //   modeIconL;
-      // }
-      print("newoffset2${widget.offset}");
     });
 
-    widget.letsDoThis!();
+    widget.getThemeIconOffset!(Offset(rect.left, rect.top));
   }
 
   @override
@@ -195,7 +176,7 @@ class _MainDrawerState extends State<MainDrawer> {
                     children: [
                       ThemeModeIcon(
                         key: fKey,
-                        letsDoThis: letsDoThisShit,
+                        getThemeIconOffset: getThemeIconOffset,
                         icon: Icon((click == false)
                             ? Icons.light_mode_rounded
                             : Icons.dark_mode_rounded),
@@ -257,13 +238,14 @@ class _MainDrawerState extends State<MainDrawer> {
 class ThemeModeIcon extends StatelessWidget {
   const ThemeModeIcon({
     super.key,
-    this.letsDoThis,
+    this.getThemeIconOffset,
     required this.icon,
   });
-  final void Function()? letsDoThis;
+
+  final void Function()? getThemeIconOffset;
   final Icon icon;
+
   @override
-  Widget build(BuildContext context) {
-    return IconContainerWidget(icon: icon, onPressed: letsDoThis);
-  }
+  Widget build(BuildContext context) =>
+      IconContainerWidget(icon: icon, onPressed: getThemeIconOffset);
 }

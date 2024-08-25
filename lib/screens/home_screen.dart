@@ -13,13 +13,13 @@ const _craTitle = 'Cra!!!';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
     super.key,
-    this.letsDoThis,
+    this.getThemeIconOffset,
   });
-  final Function()? letsDoThis;
+  final Function(Offset offset)? getThemeIconOffset;
   
 
   static Route route() =>
-      MaterialPageRoute<void>(builder: (ctx) => HomeScreen());
+      MaterialPageRoute<void>(builder: (ctx) => const HomeScreen());
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -50,13 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
   }
 
-  void _letsDoThisShit() {
-    widget.letsDoThis!();
+  void _getThemeIconOffset(Offset offset) {
+    widget.getThemeIconOffset!(offset);
   }
 
   @override
-  Widget build(BuildContext context) {
-    return WillPopScope(
+  Widget build(BuildContext context) => WillPopScope(
       onWillPop: () {
         if (items[selectedTab].navKey.currentState?.canPop() ?? false) {
           items[selectedTab].navKey.currentState?.pop();
@@ -67,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child: Scaffold(
         drawer: MainDrawer(
-          letsDoThis: _letsDoThisShit, 
+          getThemeIconOffset: _getThemeIconOffset,
         ),
         appBar: AppBar(
           iconTheme:
@@ -137,5 +136,4 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
 }
