@@ -30,7 +30,9 @@ class CallScreen extends StatelessWidget {
                   return Expanded(
                     child: Column(
                       children: <Widget>[
-                        Divider(
+
+                        const Divider(
+
                           height: 12.0,
                         ),
                         CallListTile(

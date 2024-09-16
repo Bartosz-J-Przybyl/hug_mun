@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:hug_mun/models/dark_transition.dart';
+import 'package:hug_mun/screens/home_screen.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+class SplashScreen extends StatefulWidget {
+  Offset offset = Offset.zero;
 
-  static Route route() =>
-      MaterialPageRoute<void>(builder: (_) => const SplashScreen());
+  SplashScreen({super.key, required this.offset});
+
+  static Route route() => MaterialPageRoute<void>(
+      builder: (_) => SplashScreen(offset: Offset.zero));
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Welcome"),
-      ),
-      body: const Center(
-        child: Text("Loading"),
-      ),
-    );
-  }
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  bool isDark = false;
+
+  @override
+  Widget build(BuildContext context) => DarkTransition(
+        childBuilder: (context, x) => HomeScreen(
+          getThemeIconOffset: (Offset offset) {
+            setState(() {
+              print("splash offset: $offset");
+              widget.offset = offset;
+              isDark = !isDark;
+            });
+          },
+        ),
+        offset: widget.offset,
+        isDark: isDark,
+      );
 }

@@ -11,7 +11,12 @@ const _appBarTitle = "Welcome";
 const _craTitle = 'Cra!!!';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+    this.getThemeIconOffset,
+  });
+  final Function(Offset offset)? getThemeIconOffset;
+  
 
   static Route route() =>
       MaterialPageRoute<void>(builder: (ctx) => const HomeScreen());
@@ -36,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
     items = [
       NavModel(page: const TabPage(tab: 1), navKey: messageNavKey),
       NavModel(page: const TabPage(tab: 2), navKey: friendNavKey),
@@ -44,9 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
   }
 
+  void _getThemeIconOffset(Offset offset) {
+    widget.getThemeIconOffset!(offset);
+  }
+
   @override
-  Widget build(BuildContext context) {
-    return WillPopScope(
+  Widget build(BuildContext context) => WillPopScope(
       onWillPop: () {
         if (items[selectedTab].navKey.currentState?.canPop() ?? false) {
           items[selectedTab].navKey.currentState?.pop();
@@ -56,7 +65,11 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
       child: Scaffold(
-        drawer: const MainDrawer(),
+
+        drawer: MainDrawer(
+          getThemeIconOffset: _getThemeIconOffset,
+        ),
+        
         appBar: AppBar(
           iconTheme:
               IconThemeData(color: Theme.of(context).colorScheme.surface),
@@ -66,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Image.asset(
                 Assets.imagesCrow,
                 width: 60,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.surface,
                 fit: BoxFit.cover,
               ),
               tooltip: 'Show Snackbar',
@@ -125,5 +138,4 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
 }

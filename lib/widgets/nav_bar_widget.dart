@@ -30,17 +30,17 @@ class NavBar extends StatelessWidget {
                 Center(
                   heightFactor: 0.6,
                   child: FloatingActionButton(
-                    shape: const CircleBorder(),
-                    onPressed: () {},
-                    backgroundColor: Colors.orange,
-                    elevation: 0.1,
-                    child: const RotatedBox(
-                        quarterTurns: 3,
-                        child: Icon(
-                          Icons.send,
-                          color: Colors.white,
-                        )),
-                  ),
+                      shape: const CircleBorder(),
+                      onPressed: () {},
+                      backgroundColor: Colors.orange,
+                      elevation: 0.1,
+                      child: const RotatedBox(
+                          quarterTurns: 3,
+                          child: Icon(
+                            Icons.send,
+                            color: Colors.white,
+                          )),
+                      heroTag: null),
                 ),
                 Container(
                   width: size.width,
