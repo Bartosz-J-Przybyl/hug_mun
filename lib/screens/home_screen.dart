@@ -65,9 +65,11 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
       child: Scaffold(
+
         drawer: MainDrawer(
           getThemeIconOffset: _getThemeIconOffset,
         ),
+        
         appBar: AppBar(
           iconTheme:
               IconThemeData(color: Theme.of(context).colorScheme.surface),

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class TeamResponse extends Equatable {
-  const TeamResponse({
+class TeamMemberResponse extends Equatable {
+  const TeamMemberResponse({
     required this.id,
     required this.createAt,
     required this.updateAt,
@@ -68,7 +68,7 @@ class TeamResponse extends Equatable {
   final bool? cloudLimitsArchived;
   static const String cloudLimitsArchivedKey = "cloud_limits_archived";
 
-  TeamResponse copyWith({
+  TeamMemberResponse copyWith({
     String? id,
     int? createAt,
     int? updateAt,
@@ -85,47 +85,45 @@ class TeamResponse extends Equatable {
     String? schemeId,
     bool? groupConstrained,
     bool? cloudLimitsArchived,
-  }) {
-    return TeamResponse(
-      id: id ?? this.id,
-      createAt: createAt ?? this.createAt,
-      updateAt: updateAt ?? this.updateAt,
-      deleteAt: deleteAt ?? this.deleteAt,
-      displayName: displayName ?? this.displayName,
-      name: name ?? this.name,
-      description: description ?? this.description,
-      email: email ?? this.email,
-      type: type ?? this.type,
-      companyName: companyName ?? this.companyName,
-      allowedDomains: allowedDomains ?? this.allowedDomains,
-      inviteId: inviteId ?? this.inviteId,
-      allowOpenInvite: allowOpenInvite ?? this.allowOpenInvite,
-      schemeId: schemeId ?? this.schemeId,
-      groupConstrained: groupConstrained ?? this.groupConstrained,
-      cloudLimitsArchived: cloudLimitsArchived ?? this.cloudLimitsArchived,
-    );
-  }
+  }) =>
+      TeamMemberResponse(
+        id: id ?? this.id,
+        createAt: createAt ?? this.createAt,
+        updateAt: updateAt ?? this.updateAt,
+        deleteAt: deleteAt ?? this.deleteAt,
+        displayName: displayName ?? this.displayName,
+        name: name ?? this.name,
+        description: description ?? this.description,
+        email: email ?? this.email,
+        type: type ?? this.type,
+        companyName: companyName ?? this.companyName,
+        allowedDomains: allowedDomains ?? this.allowedDomains,
+        inviteId: inviteId ?? this.inviteId,
+        allowOpenInvite: allowOpenInvite ?? this.allowOpenInvite,
+        schemeId: schemeId ?? this.schemeId,
+        groupConstrained: groupConstrained ?? this.groupConstrained,
+        cloudLimitsArchived: cloudLimitsArchived ?? this.cloudLimitsArchived,
+      );
 
-  factory TeamResponse.fromJson(Map<String, dynamic> json) {
-    return TeamResponse(
-      id: json["id"],
-      createAt: json["create_at"],
-      updateAt: json["update_at"],
-      deleteAt: json["delete_at"],
-      displayName: json["display_name"],
-      name: json["name"],
-      description: json["description"],
-      email: json["email"],
-      type: json["type"],
-      companyName: json["company_name"],
-      allowedDomains: json["allowed_domains"],
-      inviteId: json["invite_id"],
-      allowOpenInvite: json["allow_open_invite"],
-      schemeId: json["scheme_id"],
-      groupConstrained: json["group_constrained"],
-      cloudLimitsArchived: json["cloud_limits_archived"],
-    );
-  }
+  factory TeamMemberResponse.fromJson(Map<String, dynamic> json) =>
+      TeamMemberResponse(
+        id: json["id"],
+        createAt: json["create_at"],
+        updateAt: json["update_at"],
+        deleteAt: json["delete_at"],
+        displayName: json["display_name"],
+        name: json["name"],
+        description: json["description"],
+        email: json["email"],
+        type: json["type"],
+        companyName: json["company_name"],
+        allowedDomains: json["allowed_domains"],
+        inviteId: json["invite_id"],
+        allowOpenInvite: json["allow_open_invite"],
+        schemeId: json["scheme_id"],
+        groupConstrained: json["group_constrained"],
+        cloudLimitsArchived: json["cloud_limits_archived"],
+      );
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -147,9 +145,8 @@ class TeamResponse extends Equatable {
       };
 
   @override
-  String toString() {
-    return "$id, $createAt, $updateAt, $deleteAt, $displayName, $name, $description, $email, $type, $companyName, $allowedDomains, $inviteId, $allowOpenInvite, $schemeId, $groupConstrained, $cloudLimitsArchived, ";
-  }
+  String toString() =>
+      "$id, $createAt, $updateAt, $deleteAt, $displayName, $name, $description, $email, $type, $companyName, $allowedDomains, $inviteId, $allowOpenInvite, $schemeId, $groupConstrained, $cloudLimitsArchived, ";
 
   @override
   List<Object?> get props => [
