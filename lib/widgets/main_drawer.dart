@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:hug_mun/assets/assets.dart';
 import 'package:hug_mun/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:hug_mun/services/secure_store_service.dart';
 import 'package:hug_mun/widgets/drawer_list_tile.dart';
 import 'package:hug_mun/widgets/icon_container_widget.dart';
 import 'package:hug_mun/widgets/profile_text_widget.dart';
@@ -26,7 +29,7 @@ extension GlobalKeyExtension on GlobalKey {
 }
 
 class MainDrawer extends StatefulWidget {
-  MainDrawer({
+  const MainDrawer({
     super.key,
     this.getThemeIconOffset,
     this.onInit,
@@ -40,17 +43,16 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
+  final _secureStoreService = GetIt.instance.get<SecureStoreService>();
   final fKey = GlobalKey();
-  bool click = true;
+  bool click = false;
 
   void getThemeIconOffset() {
     final rect = fKey.globalPaintBounds!;
-    print('absolute coordinates on screen: $rect');
-    setState(() {
-      click = !click;
-    });
-
-    widget.getThemeIconOffset!(Offset(rect.left, rect.top));
+    final xMiddle = (rect.right - rect.left) / 2;
+    final yMiddle = (rect.bottom - rect.top) / 2;
+    widget.getThemeIconOffset!(
+        Offset(rect.right - xMiddle, rect.bottom - yMiddle));
   }
 
   @override
@@ -176,7 +178,15 @@ class _MainDrawerState extends State<MainDrawer> {
                     children: [
                       ThemeModeIcon(
                         key: fKey,
-                        getThemeIconOffset: getThemeIconOffset,
+                        getThemeIconOffset: () {
+                          getThemeIconOffset();
+                          setState(() {
+                            click = !click;
+                            Object currentTheme = !click ? "dark" : "light";
+                            _secureStoreService.writeValue(
+                                currentTheme, "theme");
+                          });
+                        },
                         icon: Icon((click == false)
                             ? Icons.light_mode_rounded
                             : Icons.dark_mode_rounded),

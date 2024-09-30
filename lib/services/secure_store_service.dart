@@ -27,6 +27,21 @@ class SecureStoreService {
     return SimpleSecureStorage.has(serverName);
   }
 
+  Future<bool> writeValue(Object args, key) async {
+    await SimpleSecureStorage.write(key, jsonEncode(args));
+    return SimpleSecureStorage.has(key);
+  }
+
+  Future<Object> readOrDefault(String key, Object fallback) async {
+    if (await SimpleSecureStorage.has(key)) {
+      final data = await SimpleSecureStorage.read(key);
+      final decodedData = jsonDecode(data!);
+      return decodedData;
+    } else {
+      return fallback;
+    }
+  }
+
   Future<dynamic> read(String serverName) async {
     try {
       if (await SimpleSecureStorage.has(serverName)) {
